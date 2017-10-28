@@ -14,7 +14,7 @@ const appRoutes = [
             { path: ':id', component: CandidatesDetailComponent },
             // { path: ':id/edit', component: CandidateEditComponent },
         ]
-    }
+    } 
 ];
 
 @NgModule({

@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Candidate } from './../../model/candidate.model';
 
-
+ 
 @Component({
   selector: 'app-candidates-list',
   templateUrl: './candidates-list.component.html',
