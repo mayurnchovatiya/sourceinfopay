@@ -1,0 +1,217 @@
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="candidateForm" (ngSubmit)="onSubmit()"> 
+
+
+
+      <div class="row">
+        <div class="col-xs-12">
+          <button [disabled]="!candidateForm.valid" type="submit" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+        </div>
+      </div>
+      <hr>
+      <div class="form-group">
+        <div class="col-md-6">
+          <label class="control-label" for="candidateName">Candidate Name</label>
+          <input class="form-control" 
+            type="text"
+            formControlName="candidateName"
+          >
+          
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-md-6">
+          <label class="control-label" for="date">Date</label>
+          <input class="form-control" 
+             type="text"
+             formControlName="date"
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-md-6">
+          <label class="control-label" for="telephone">Telephone</label>
+          <input class="form-control" 
+            type="text"
+            formControlName="telephone"
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-md-6">
+          <label class="control-label" for="email">Email</label>
+          <input class="form-control" 
+            type="email"
+            formControlName="email"
+          >
+        </div>
+      </div>
+
+      <div class="form-group" formGroupName="primeVendor">
+        <div class="col-md-6">
+          <label class="control-label" for="pvCompany">Prime Vendor Company</label>
+          <input formControlName="pvCompany" class="form-control" placeholder="" type="text">
+        </div>
+      </div>
+
+      <div class="form-group" formGroupName="primeVendor">
+        <div class="col-md-6">
+          <label class="control-label" for="pvTelephone">Telephone</label>
+          <input formControlName="pvTelephone" class="form-control" placeholder="" type="text">
+        </div>
+      </div>
+
+      <div class="form-group" formGroupName="primeVendor">
+        <div class="col-md-6">
+          <label class="control-label" for="pvContactPerson">Contact Person</label>
+          <input formControlName="pvContactPerson" class="form-control" placeholder="" type="text">
+        </div>
+      </div>
+
+      <div class="form-group" formGroupName="primeVendor">
+        <div class="col-md-6">
+          <label class="control-label" for="pvEmail">Email</label>
+          <input formControlName="pvEmail" class="form-control" placeholder="" type="email">
+        </div>
+      </div>
+
+      <div class="form-group" formGroupName="primeVendor">
+        <div class="col-md-6">
+          <label class="control-label" for="pvRate">PV Rate</label>
+          <input formControlName="pvRate" class="form-control" placeholder="" type="text">
+        </div>
+      </div>
+
+      <div class="form-group" formGroupName="primeVendor">
+        <div class="col-md-6">
+          <label class="control-label" for="pvFax">Fax</label>
+          <input formControlName="pvFax" class="form-control" placeholder="" type="text">
+        </div>
+      </div>
+
+      <div class="form-group" formGroupName="subVendor">
+        <div class="col-md-6">
+          <label class="control-label" for="svCompany">Sub Vendor Company</label>
+          <input formControlName="svCompany" class="form-control" placeholder="" type="text">
+        </div>
+      </div>
+
+      <div class="form-group" formGroupName="subVendor">
+        <div class="col-md-6">
+          <label class="control-label" for="svTelephone">Telephone</label>
+          <input formControlName="svTelephone" class="form-control" placeholder="" type="text">
+        </div>
+      </div>
+
+      <div class="form-group" formGroupName="subVendor">
+        <div class="col-md-6">
+          <label class="control-label" for="svContactPerson">Contact Person</label>
+          <input formControlName="svContactPerson" class="form-control" placeholder="" type="text">
+        </div>
+      </div>
+
+      <div class="form-group" formGroupName="subVendor">
+        <div class="col-md-6">
+          <label class="control-label" for="svEmail">Email</label>
+          <input formControlName="svEmail" class="form-control" placeholder="" type="email">
+        </div>
+      </div>
+
+      <div class="form-group" formGroupName="subVendor">
+        <div class="col-md-6">
+          <label class="control-label" for="svRate">SV Rate</label>
+          <input formControlName="svRate" class="form-control" placeholder="" type="text">
+        </div>
+      </div>
+
+      <div class="form-group" formGroupName="subVendor">
+        <div class="col-md-6">
+          <label class="control-label" for="svFax">Fax</label>
+          <input formControlName="svFax" class="form-control" placeholder="" type="text">
+        </div>
+      </div>
+
+
+      <div class="form-group" formGroupName="salesPerson">
+        <div class="col-md-6">
+          <label class="control-label" for="salesPerson">Sales Person</label>
+          <input formControlName="salesPerson" class="form-control" placeholder="" type="text">
+        </div>
+      </div>
+
+      <div class="form-group" formGroupName="commission">
+        <div class="col-md-6">
+          <label class="control-label" for="salesPersonCommission">% Commission</label>
+          <input formControlName="salesPersonCommission" class="form-control" placeholder="" type="text">
+        </div>
+      </div>
+
+      <div class="form-group" formGroupName="recruiter">
+        <div class="col-md-6">
+          <label class="control-label" for="recruiter">Recruiter</label>
+          <input formControlName="recruiter" class="form-control" placeholder="" type="text">
+        </div>
+      </div>
+
+      <div class="form-group" formGroupName="commission">
+        <div class="col-md-6">
+          <label class="control-label" for="recruiterCommission">% Commission</label>
+          <input formControlName="recruiterCommission" class="form-control" placeholder="" type="text">
+        </div>
+      </div>
+
+      <div class="form-group" formGroupName="managerOne">
+        <div class="col-md-6">
+          <label class="control-label" for="managerOne">Manager 1</label>
+          <input formControlName="managerOne" class="form-control" placeholder="" type="text">
+        </div>
+      </div>
+
+      <div class="form-group" formGroupName="commission">
+        <div class="col-md-6">
+          <label class="control-label" for="managerOneCommission">% Commission</label>
+          <input formControlName="managerOneCommission" class="form-control" placeholder="" type="text">
+        </div>
+      </div>
+
+      <div class="form-group" formGroupName="managerTwo">
+        <div class="col-md-6">
+          <label class="control-label" for="managerTwo">Manager 2</label>
+          <input formControlName="managerTwo" class="form-control" placeholder="" type="text">
+        </div>
+      </div>
+
+      <div class="form-group" formGroupName="commission">
+        <div class="col-md-6">
+          <label class="control-label" for="managerTwoCommission">% Commission</label>
+          <input formControlName="managerTwoCommission" class="form-control" placeholder="" type="text">
+        </div>
+      </div>
+
+
+    </form>
+    
+  </div>
+</div>
+<hr>
+
+
+
+<!-- <div class="form-group">
+          <div class="col-md-12">
+            <button [disabled]="!f.valid" type="submit" 
+            style="margin: 20px 0px"
+            class="btn btn-primary btn-lg btn-block info">Save</button>
+          </div>
+        </div> -->
+
+
+<!-- <span *ngIf="!candidateForm.get('candidateName').valid && candidateForm.get('candidateName').touched"
+   class="help-block">please enter valid name!</span> -->
+
+<!-- <a class="btn btn-primary btn-block info " role="button ">Save</a> -->

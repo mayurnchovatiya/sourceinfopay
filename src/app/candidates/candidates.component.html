@@ -1,0 +1,20 @@
+<div class="col-md-3">
+  <app-candidates-list></app-candidates-list>
+</div>
+<div class="col-md-9">
+  <!-- children router outlet -->
+  <router-outlet></router-outlet>
+</div>
+
+
+
+
+<!-- <div class="col-md-3">
+  <app-candidates-list (candidateWasSelected)="selectedCandidate = $event"></app-candidates-list>
+</div>
+<div class="col-md-9">
+  <app-candidates-detail *ngIf="selectedCandidate; else infoText" [candidates]="selectedCandidate"></app-candidates-detail>
+  <ng-template #infoText>
+    <p>Please Select a Candidate!</p>
+  </ng-template>
+</div> -->

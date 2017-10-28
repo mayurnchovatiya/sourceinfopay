@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-xs-12">
+    <button class="btn btn-success" (click)="onNewCandidate()">New Candidate</button>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-xs-12">
+    
+    <app-candidates-item  *ngFor="let candidateEl of candidates; let i = index"
+    [candidates]="candidateEl"
+    [index]="i"></app-candidates-item>
+  </div>
+</div>
