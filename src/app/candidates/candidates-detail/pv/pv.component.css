@@ -1,0 +1,50 @@
+label {
+    margin-top: 15px;
+  }
+  
+  input {
+    max-width: 100%;
+  }
+  
+  /* hr {
+    
+    clear:both;
+    display:block;
+    width: 96%;               
+    border-top: 1px solid #eee;
+    height: 1px;
+  } */
+  
+  .form-group {
+    margin-bottom: 0;
+    text-align: left;
+  }
+  
+  .border-class {
+    border: thin #f0e9e9 solid;
+    padding: 15px;
+  }
+  
+  input.ng-invalid.ng-touched {
+    border: 1px solid red;
+    box-shadow: 0 0 10px red;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  }
+  
+  
+  /* .btnsTop {
+    margin-top: 0px;
+  }
+  
+  .btn {
+    margin-top: 20px;
+  } */
+  
+  
+  /* input {
+      border: 2px solid #CCC !important;
+      height: 35px;
+      border-radius: 3px;
+      max-width: 100%;
+    } */
+  

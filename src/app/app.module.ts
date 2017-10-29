@@ -14,6 +14,10 @@ import { CandidateEditComponent } from './candidates/candidate-edit/candidate-ed
 import { CandidateStartComponent } from './candidates/candidate-start/candidate-start.component';
 import { CandidateService } from './candidates/candidate.service';
 import { DataStorageService } from './candidates/data-storage.service';
+import { PvComponent } from './candidates/candidates-detail/pv/pv.component';
+import { SvComponent } from './candidates/candidates-detail/sv/sv.component';
+import { PaidComponent } from './candidates/candidates-detail/paid/paid.component';
+import { SiempComponent } from './candidates/candidates-detail/siemp/siemp.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,11 @@ import { DataStorageService } from './candidates/data-storage.service';
     CandidatesListComponent,
     CandidatesItemComponent,
     CandidateEditComponent,
-    CandidateStartComponent
+    CandidateStartComponent,
+    PvComponent,
+    SvComponent,
+    PaidComponent,
+    SiempComponent
   ],
   imports: [
     BrowserModule,

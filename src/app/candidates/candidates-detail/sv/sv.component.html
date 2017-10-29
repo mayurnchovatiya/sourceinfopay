@@ -1,0 +1,192 @@
+<div class="row">
+  <div class="col-xs-12">
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+
+        <thead>
+          <tr>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>SV Name</th>
+            <th>Hours</th>
+            <th>Amount</th>
+            <th>Deduct</th>
+            <th>Deduct Amount</th>
+            <th>SV COmment</th>
+            <th>Select to pay</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>11/11/2015</td>
+            <td>1/1/2017</td>
+            <td>ABC</td>
+            <td>40</td>
+            <td>2500</td>
+            <td>Y</td>
+            <td>0</td>
+            <td>good to go</td>
+            <td>*</td>
+          </tr>
+          <tr>
+            <td>1/1/2015</td>
+            <td>1/1/2017</td>
+            <td>XYZ</td>
+            <td>45</td>
+            <td>2000</td>
+            <td>N</td>
+            <td>0</td>
+            <td>good to go</td>
+            <td>*</td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+    <!--end of .table-responsive-->
+
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-xs-3">
+    <h4>Total Hours: </h4>
+  </div>
+  <div class="col-xs-3">
+    <h4>Total Amount: </h4>
+  </div>
+  <div class="col-xs-3 pull-right">
+    <button class="btn btn-success btn-block" (click)="onPay()">Pay Now</button>
+  </div>
+</div>
+
+
+
+<div class="row">
+
+  <hr>
+
+  <div class="col-xs-12">
+
+    <form id="svForm" class="clearfix" name="pvForm">
+
+      <fieldset>
+
+
+        <div class="form-group">
+          <div class="col-md-6">
+            <label class="control-label" for="candidateName">Start Date</label>
+            <input name="startDate" class="form-control" placeholder="" type="text">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-6">
+            <label class="control-label" for="telephone">End Date</label>
+            <input name="endDate" class="form-control" placeholder="" type="text">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-6">
+            <label class="control-label" for="pvCompany">Total Hours</label>
+            <input name="totalHours" class="form-control" placeholder="" type="text">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-6">
+            <label class="control-label" for="email">Calculated Amount</label>
+            <input name="calculatedAmount" class="form-control" placeholder="" type="text">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-6">
+            <label class="control-label" for="deduction">Deduction</label>
+            <input name="deduction" class="form-control" placeholder="" type="text">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-6">
+            <label class="control-label" for="actualPayment">Total Amount</label>
+            <input name="totalAmount" class="form-control" placeholder="" type="text">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-6">
+            <label class="control-label" for="comment">Comment</label>
+            <textarea class="form-control" rows="5" name="comment"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-6">
+            <label class="control-label" for="status">Status</label>
+            <div class="form-group">
+              <input type="radio" name="optradio">
+              <label>Paid</label>
+            </div>
+
+            <div class="form-group">
+              <input type="radio" name="optradio">
+              <label>Unpaid</label>
+            </div>
+
+            <div class="form-group">
+              <input type="radio" name="optradio">
+              <label>Will not be paid</label>
+            </div>
+          </div>
+        </div>
+
+
+
+        <!-- <div class="form-group">
+          <div class="col-md-6">
+            <label class="radio-inline control-label">
+              <input type="radio" name="optradio">Paid</label>
+            <label class="radio-inline control-label">
+              <input type="radio" name="optradio">Unpaid</label>
+            <label class="radio-inline control-label">
+              <input type="radio" name="optradio">Will not be paid</label>
+          </div>
+        </div> -->
+
+
+        <!-- <div class="form-group">
+                      <div class="col-md-12">
+                        <button type="button" class="btn btn-primary btn-lg btn-block info">Send</button>
+                      </div>
+                    </div> -->
+
+      </fieldset>
+
+      <hr>
+
+      <div class="row">
+
+        <div class="col-xs-2">
+          <button class="btn btn-success btn-block" (click)="onSave()">Save</button>
+        </div>
+        <div class="col-xs-2 ">
+          <button class="btn btn-primary btn-block" (click)="onEdit()">Edit</button>
+        </div>
+        <div class="col-xs-2 ">
+          <button class="btn btn-danger btn-block" (click)="onCancel()">Cancel</button>
+        </div>
+
+
+      </div>
+
+    </form>
+
+
+  </div>
+</div>
+
+<hr>

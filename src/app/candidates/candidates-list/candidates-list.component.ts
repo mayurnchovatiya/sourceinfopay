@@ -9,7 +9,7 @@ import { Candidate } from './../../model/candidate.model';
   selector: 'app-candidates-list',
   templateUrl: './candidates-list.component.html',
   styleUrls: ['./candidates-list.component.css']
-})
+}) 
 export class CandidatesListComponent implements OnInit, OnDestroy {
 
   @Output() candidateWasSelected = new EventEmitter<Candidate>();

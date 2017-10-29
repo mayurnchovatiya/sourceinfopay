@@ -5,13 +5,14 @@ import { Candidate } from './../../model/candidate.model';
 
 
 @Component({
-  selector: 'app-candidates-detail',
+  selector: 'app-candidates-detail', 
   templateUrl: './candidates-detail.component.html',
   styleUrls: ['./candidates-detail.component.css']
 }) 
 export class CandidatesDetailComponent implements OnInit {
   candidates: Candidate;
   id: number;
+
   constructor(private candidateService: CandidateService,
               private route: ActivatedRoute,
               private router: Router
@@ -28,6 +29,26 @@ export class CandidatesDetailComponent implements OnInit {
 
   onEditCandidate() {
     this.router.navigate(['edit'], { relativeTo: this.route });
+    // this.router.navigate(['../', this.id, 'edit']. {relativeTo: this.route});
+  }
+
+  onPV() {
+    this.router.navigate(['pv'], { relativeTo: this.route });
+    // this.router.navigate(['../', this.id, 'edit']. {relativeTo: this.route});
+  }
+
+  onSV() {
+    this.router.navigate(['sv'], { relativeTo: this.route });
+    // this.router.navigate(['../', this.id, 'edit']. {relativeTo: this.route});
+  }
+
+  onPaid() {
+    this.router.navigate(['paid'], { relativeTo: this.route });
+    // this.router.navigate(['../', this.id, 'edit']. {relativeTo: this.route});
+  }
+
+  onSiEmp() {
+    this.router.navigate(['siemp'], { relativeTo: this.route });
     // this.router.navigate(['../', this.id, 'edit']. {relativeTo: this.route});
   }
 

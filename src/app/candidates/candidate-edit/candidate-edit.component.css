@@ -6,7 +6,7 @@ input {
   max-width: 100%;
 }
 
-hr {
+hrd {
   
   clear:both;
   display:block;
@@ -36,9 +36,14 @@ input.ng-invalid.ng-touched {
   margin-top: 0px;
 }
 
+
+
 .btn {
   margin-top: 20px;
-} */
+} 
+
+
+*/
 
 
 /* input {
