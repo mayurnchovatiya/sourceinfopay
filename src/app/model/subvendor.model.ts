@@ -1,11 +1,11 @@
 
 export class SubVendor {
     constructor(
-        public name: string,
-        public contactPerson: string,
-        public address: string,
-        public phoneNumber: string,
-        public emalID: string,
-        public faxNumber: string
+        public svName: string,
+        public svContactPerson: string,
+        public svAddress: string,
+        public svTelephone: string,
+        public svEmail: string,
+        public svFax: string
     ) { }
 }

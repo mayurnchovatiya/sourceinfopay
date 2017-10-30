@@ -38,7 +38,7 @@ export class CandidateEditComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.candidateForm.value);
+    console.log('Candidate' + this.candidateForm.value);
     if (this.editMode) {
       this.candidateService.updateCandidate(this.id, this.candidateForm.value);
     } else {
@@ -55,74 +55,92 @@ export class CandidateEditComponent implements OnInit {
   private initForm() {
 
     let candidateName = '';
-    let date = '';
-    let telephone = '';
-    let email = '';
-    let pvCompany = '';
-    let pvTelephone = '';
-    let pvContactPerson = '';
-    let pvEmail = '';
+    let startDate = '';
+    let endDate = '';
     let pvRate = '';
-    let pvFax = '';
-    let svCompany = '';
-    let svTelephone = '';
-    let svContactPerson = '';
-    let svEmail = '';
     let svRate = '';
+
+    let pvName = '';
+    let pvContactPerson = '';
+    let pvAddress = '';
+    let pvTelephone = '';
+    let pvEmail = '';
+    let pvFax = '';
+    
+    let svName = '';
+    let svContactPerson = '';
+    let svAddress = '';
+    let svTelephone = '';
+    let svEmail = '';
     let svFax = '';
-    let salesPerson = '';
-    let salesPersonCommission = '';
-    let recruiter = '';
+    
+    let seName = '';
+    let seRole = '';
+
+    let reName = '';
+    let reRole = '';
+
+    let moName = '';
+    let moRole = '';
+
+    let mtName = '';
+    let mtRole = '';
+
+    let salesCommission = '';
     let recruiterCommission = '';
-    let managerOne = '';
     let managerOneCommission = '';
-    let managerTwo = '';
     let managerTwoCommission = '';
 
     this.candidateForm = new FormGroup({
       'candidateName': new FormControl(candidateName, Validators.required),
-      'date': new FormControl(date),
-      'telephone': new FormControl(telephone),
-      'email': new FormControl(email, [Validators.required, Validators.email]),
+      'startDate': new FormControl(startDate),
+      'endDate': new FormControl(endDate),
+      'pvRate': new FormControl(pvRate),
+      'svRate': new FormControl(svRate),
+
       'primeVendor': new FormGroup({
-        'pvCompany': new FormControl(pvCompany),
-        'pvTelephone': new FormControl(pvTelephone),
+        'pvName': new FormControl(pvName, Validators.required),
         'pvContactPerson': new FormControl(pvContactPerson),
+        'pvAddress': new FormControl(pvAddress),
+        'pvTelephone': new FormControl(pvTelephone),
         'pvEmail': new FormControl(pvEmail),
-        'pvRate': new FormControl(pvRate),
         'pvFax': new FormControl(pvFax)
       }),
 
       'subVendor': new FormGroup({
-        'svCompany': new FormControl(svCompany),
-        'svTelephone': new FormControl(svTelephone),
+        'svName': new FormControl(svName, Validators.required),
         'svContactPerson': new FormControl(svContactPerson),
+        'svAddress': new FormControl(svAddress),
+        'svTelephone': new FormControl(svTelephone),
         'svEmail': new FormControl(svEmail),
-        'svRate': new FormControl(svRate),
         'svFax': new FormControl(svFax)
       }),
 
-      'salesPerson': new FormGroup({
-        'salesPerson': new FormControl(salesPerson),
+      'salesEmployee': new FormGroup({
+        'name': new FormControl(seName),
+        'role': new FormControl(seRole)
       }),
 
-      'recruiter': new FormGroup({
-        'recruiter': new FormControl(recruiter),
+      'recruiterEmployee': new FormGroup({
+        'name': new FormControl(reName),
+        'role': new FormControl(reRole)
       }),
 
       'managerOne': new FormGroup({
-        'managerOne': new FormControl(managerOne),
+        'name': new FormControl(moName),
+        'role': new FormControl(moRole)
       }),
 
       'managerTwo': new FormGroup({
-        'managerTwo': new FormControl(managerTwo),
+        'name': new FormControl(mtName),
+        'role': new FormControl(mtRole)
       }),
 
       'commission': new FormGroup({
-        'salesPersonCommission': new FormControl(salesPersonCommission),
+        'salesCommission': new FormControl(salesCommission),
         'recruiterCommission': new FormControl(recruiterCommission),
         'managerOneCommission': new FormControl(managerOneCommission),
-        'managerTwoCommission': new FormControl(managerOneCommission)
+        'managerTwoCommission': new FormControl(managerTwoCommission)
       })
 
     });

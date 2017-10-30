@@ -59,7 +59,7 @@ export class CandidateService {
         )
     ];
 
-    setCandidate(candidates: Candidate[]){
+    setCandidate(candidates: Candidate[]) {
         this.candidates = candidates;
         this.candidateChanged.next(this.candidates.slice());
     }

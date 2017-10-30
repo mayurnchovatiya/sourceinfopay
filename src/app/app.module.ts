@@ -18,6 +18,7 @@ import { PvComponent } from './candidates/candidates-detail/pv/pv.component';
 import { SvComponent } from './candidates/candidates-detail/sv/sv.component';
 import { PaidComponent } from './candidates/candidates-detail/paid/paid.component';
 import { SiempComponent } from './candidates/candidates-detail/siemp/siemp.component';
+import { DropdownDirective } from './shared/dropdown.directive';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { SiempComponent } from './candidates/candidates-detail/siemp/siemp.compo
     PvComponent,
     SvComponent,
     PaidComponent,
-    SiempComponent
+    SiempComponent,
+    DropdownDirective
   ],
   imports: [
     BrowserModule,

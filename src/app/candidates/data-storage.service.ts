@@ -12,12 +12,12 @@ export class DataStorageService {
     }
 
     storeCandidate() {
-        return this.http.put('https://sourcepay-1fa7a.firebaseio.com/candidates.json',
+        return this.http.post('http://localhost:8080/api/add-candidate',
             this.candidateService.getCandidates());
     }
 
     getCandidates() {
-        this.http.get('https://sourcepay-1fa7a.firebaseio.com/candidates.json')
+        this.http.get('http://localhost:8080/api/candidates')
             .map(
             (response: Response) => {
                 const candidates: Candidate[] = response.json();

@@ -6,23 +6,13 @@ input {
   max-width: 100%;
 }
 
-hrd {
-  
-  clear:both;
-  display:block;
-  width: 96%;               
-  border-top: 1px solid #eee;
-  height: 1px;
-}
-
 .form-group {
   margin-bottom: 0;
   text-align: left;
 }
 
-.border-class {
-  border: thin #f0e9e9 solid;
-  padding: 15px;
+.invisible{
+  visibility: hidden;
 }
 
 input.ng-invalid.ng-touched {
@@ -41,6 +31,21 @@ input.ng-invalid.ng-touched {
 .btn {
   margin-top: 20px;
 } 
+
+hrd {
+  
+  clear:both;
+  display:block;
+  width: 96%;               
+  border-top: 1px solid #eee;
+  height: 1px;
+}
+
+
+.border-class {
+  border: thin #f0e9e9 solid;
+  padding: 15px;
+}
 
 
 */

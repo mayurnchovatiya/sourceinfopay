@@ -1,3 +1,5 @@
+import { Response } from '@angular/http';
+import { DataStorageService } from './../candidates/data-storage.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +8,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+
+  constructor(private dsService: DataStorageService){}
+
+  onSaveData() {
+    this.dsService.storeCandidate().subscribe(
+      (response: Response) => {
+        console.log(response);
+      }
+    );
+  }
+
+  onFetchData() {
+    this.dsService.getCandidates();
+  }
+
 
 }

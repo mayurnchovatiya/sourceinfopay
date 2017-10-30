@@ -9,11 +9,11 @@ import { PrimeVendor } from './primevendor.model';
 
 export class Candidate {
     constructor(
-        public name: string,
+        public candidateName: string,
         public startDate: string,
         public endDate: string,
-        public primeVendorRate: string,
-        public subVendorRate: string,
+        public pvRate: string,
+        public svRate: string,
         public primeVendor: PrimeVendor,
         public subVendor: SubVendor,
         public salesEmployee: SalesEmployee,

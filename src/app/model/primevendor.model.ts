@@ -1,11 +1,11 @@
 
 export class PrimeVendor {
     constructor(
-        public name: string,
-        public contactPerson: string,
-        public address: string,
-        public phoneNumber: string,
-        public emalID: string,
-        public faxNumber: string
+        public pvName: string,
+        public pvContactPerson: string,
+        public pvAddress: string,
+        public pvTelephone: string,
+        public pvEmail: string,
+        public pvFax: string
     ) { }
 }
