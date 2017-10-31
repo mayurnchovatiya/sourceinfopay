@@ -38,7 +38,7 @@ export class CandidateEditComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('Candidate' + this.candidateForm.value);
+    console.log(this.candidateForm.value);
     if (this.editMode) {
       this.candidateService.updateCandidate(this.id, this.candidateForm.value);
     } else {

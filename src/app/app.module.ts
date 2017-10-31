@@ -2,6 +2,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { DateValueAccessorModule } from 'angular-date-value-accessor/src';
 import { RoutingModule } from './routing.module';
 
 import { AppComponent } from './app.component';
@@ -41,7 +42,8 @@ import { DropdownDirective } from './shared/dropdown.directive';
     FormsModule,
     ReactiveFormsModule,
     RoutingModule,
-    HttpModule
+    HttpModule,
+    DateValueAccessorModule
 
   ],
   providers: [CandidateService, DataStorageService],

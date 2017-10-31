@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <form [formGroup]="candidateForm" (ngSubmit)="onSubmit()">
 
-
+ 
 
       <div class="row">
         <div class="col-md-12">
@@ -22,18 +22,18 @@
       <div class="form-group">
         <div class="col-md-6">
           <label class="control-label" for="startDate">Start Date</label>
-          <input class="form-control" type="text" formControlName="startDate">
+          <input class="form-control" type="date" formControlName="startDate" useValueAsDate>
         </div>
       </div>
 
       <div class="form-group">
         <div class="col-md-6">
           <label class="control-label" for="endDate">End Date</label>
-          <input class="form-control" type="text" formControlName="endDate">
+          <input class="form-control" type="date" formControlName="endDate" useValueAsDate>
         </div>
       </div>
 
-      <div class="form-group invisible">
+      <div class="form-group invisible"> 
         <div class="col-md-6">
           <label class="control-label" for="invisible">Invisible</label>
           <input class="form-control" type="text">

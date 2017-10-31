@@ -52,9 +52,9 @@ export class CandidatesDetailComponent implements OnInit {
     // this.router.navigate(['../', this.id, 'edit']. {relativeTo: this.route});
   }
 
-  onDeleteCandidate() {
-    this.candidateService.deleteCandidate(this.id);
-    this.router.navigate(['/candidates']);
-  }
+  // onDeleteCandidate() {
+  //   this.candidateService.deleteCandidate(this.id);
+  //   this.router.navigate(['/candidates']);
+  // }
 
 }
