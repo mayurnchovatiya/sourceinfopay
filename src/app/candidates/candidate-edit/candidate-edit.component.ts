@@ -29,23 +29,42 @@ export class CandidateEditComponent implements OnInit {
     );
   }
 
-  onSaveData() {
-    this.dsService.storeCandidate().subscribe(
-      (response: Response) => {
-        console.log(response);
-      }
-    );
-  }
+  // onSaveData() {
+  //   this.dsService.storeCandidate().subscribe(
+  //     (response: Response) => {
+  //       console.log(response);
+  //     }
+  //   );
+  // }
 
   onSubmit() {
     console.log(this.candidateForm.value);
     if (this.editMode) {
       this.candidateService.updateCandidate(this.id, this.candidateForm.value);
     } else {
-      this.candidateService.addCandiidate(this.candidateForm.value);
+      // this.candidateService.addCandiidate(this.candidateForm.value);
+      this.candidateService.storeCandidateByAPI(this.candidateForm.value).subscribe(
+        (response: Response) => {
+          console.log(response);
+        },
+        (error) => {
+          console.error(error);
+        },
+        () => {
+          console.log('dsService.getCandidates() calling');
+          this.dsService.getCandidates();
+          // this.candidateService.getCandidatesByAPI();
+          this.router.navigate(['candidates']);
+
+        }
+      );
+
     }
-    this.onSaveData();
-    this.onCancel();
+
+
+
+    // this.onSaveData();
+    // this.onCancel();
   }
 
   onCancel() {
@@ -66,14 +85,14 @@ export class CandidateEditComponent implements OnInit {
     let pvTelephone = '';
     let pvEmail = '';
     let pvFax = '';
-    
+
     let svName = '';
     let svContactPerson = '';
     let svAddress = '';
     let svTelephone = '';
     let svEmail = '';
     let svFax = '';
-    
+
     let seName = '';
     let seRole = '';
 

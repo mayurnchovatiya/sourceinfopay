@@ -20,19 +20,28 @@ export class CandidatesListComponent implements OnInit, OnDestroy {
   candidates: Candidate[];
 
   constructor(private candidateService: CandidateService,
+    private dsService: DataStorageService,
     private router: Router,
     private route: ActivatedRoute,
     private http: Http) { }
 
   ngOnInit() {
+      this.dsService.getCandidates();
+     this.candidates = this.candidateService.getAPICandidatesMethod();
+     this.subscription =  this.candidateService.candidateChanged.subscribe(
+       (candidatesData: Candidate[]) => {
+         this.candidates = candidatesData;
+       }
+      );
+   
+   
+       //  ---- working -----
+    // this.candidateService.getCandidatesByAPI().subscribe(
+    //   (candidateData) => this.candidates = candidateData,
+    // );
+          //  ---- working end -----
 
-    // this.candidates = this.candidateService.getAPICandidatesMethod();
-    this.candidateService.getCandidatesByAPI().subscribe(
-      (candidateData) => this.candidates = candidateData,
-      (candidateData) => this.candidates = candidateData
-      
 
-    );
 
     // this.http.get('http://localhost:8080/api/candidates')
     // .map(
@@ -66,7 +75,7 @@ export class CandidatesListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.subscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
 }

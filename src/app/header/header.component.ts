@@ -11,17 +11,17 @@ export class HeaderComponent {
 
   constructor(private dsService: DataStorageService){}
 
-  onSaveData() {
-    this.dsService.storeCandidate().subscribe(
-      (response: Response) => {
-        console.log(response);
-      }
-    );
-  }
+  // onSaveData() {
+  //   this.dsService.storeCandidate().subscribe(
+  //     (response: Response) => {
+  //       console.log(response);
+  //     }
+  //   );
+  // }
 
-  onFetchData() {
-    this.dsService.getCandidates();
-  }
+  // onFetchData() {
+  //   this.dsService.getCandidates();
+  // }
 
 
 }

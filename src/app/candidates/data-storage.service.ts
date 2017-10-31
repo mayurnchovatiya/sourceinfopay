@@ -20,12 +20,12 @@ export class DataStorageService {
     //         this.candidateService.getCandidates());
     // }
 
-    storeCandidate() {
-        console.log(this.candidateService.getCandidates());
-        // const headers = new Headers({'Content-Type': 'application/json'});    // , {headers: headers}
-        return this.http.post('http://localhost:8080/api/add-candidate',
-            this.candidateService.getCandidates());
-    }
+    // storeCandidate() {
+    //     console.log(this.candidateService.getCandidates());
+    //     // const headers = new Headers({'Content-Type': 'application/json'});    // , {headers: headers}
+    //     return this.http.post('http://localhost:8080/api/add-candidate',
+    //         this.candidateService.getCandidates());
+    // }
 
     //    firebase
     // getCandidates() {
@@ -46,34 +46,32 @@ export class DataStorageService {
     // }
 
         //    working get api
-    getCandidates(): Observable<Candidate[]> {
-        return this.http.get('http://localhost:8080/api/candidates')
-            .map(
-            (response: Response) => <Candidate[]>response.json()
-        );
-    }
-
-
-    // getCandidates() {
+    // getCandidates(): Observable<Candidate[]> {
     //     return this.http.get('http://localhost:8080/api/candidates')
     //         .map(
-
-    //         (response: Response) => {
-    //             const candidates: Candidate[] = response.json();
-    //             console.log('ds getcandidate1');
-    //             console.log(candidates);
-    //             return candidates;
-    //         }
-    //         )
-    //         .subscribe(
-    //         (candidates: Candidate[]) => {
-    //             console.log('ds getcandidate2');
-    //             console.log(candidates);
-    //             // this.candidateService.setCandidate(candidates);
-    //         }
-    //         );
-
+    //         (response: Response) => <Candidate[]>response.json()
+    //     );
     // }
+
+
+    getCandidates() {
+        return this.http.get('http://localhost:8080/api/candidates')
+            .map(
+
+            (response: Response) => {
+                const candidates: Candidate[] = response.json();
+                return candidates;
+            }
+            )
+            .subscribe(
+            (candidates: Candidate[]) => {
+                console.log('ds got candidate');
+                console.log(candidates);
+                 this.candidateService.setCandidate(candidates);
+            }
+            );
+
+    }
 
 
 }

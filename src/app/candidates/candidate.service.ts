@@ -17,65 +17,57 @@ export class CandidateService {
     candidateChanged = new Subject<Candidate[]>();
 
     private candidates: Candidate;
-    private getAPICandidates: Candidate[];
-    // new Candidate(
-    //     'Candidate 1',
-    //     '1-1-12',
-    //     '1-1-15',
-    //     '80',
-    //     '60',
-    //     new PrimeVendor('ATT', 'Andi', 'Austin', '1234567890', 'andi@gmail.com', '12345'),
-    //     new SubVendor('Chase', 'Mary', 'Dallas', '6789012345', 'mary@gmail.com', '54321'),
-    //     new SalesEmployee('Harshit', 'Manager'),
-    //     new RecruiterEmployee('Ketan', 'CEO'),
-    //     new ManagerOne('Jigo', 'man1'),
-    //     new ManagerTwo('Jago', 'man2'),
-    //     new Commission('1', '2', '3', '4')
-    // ),
-    // new Candidate(
-    //     'Candidate 2',
-    //     '1-1-12',
-    //     '1-1-15',
-    //     '80',
-    //     '60',
-    //     new PrimeVendor('ATT', 'Andi', 'Austin', '1234567890', 'andi@gmail.com', '12345'),
-    //     new SubVendor('Chase', 'Mary', 'Dallas', '6789012345', 'mary@gmail.com', '54321'),
-    //     new SalesEmployee('Harshit', 'Manager'),
-    //     new RecruiterEmployee('Ketan', 'CEO'),
-    //     new ManagerOne('Jigo', 'man1'),
-    //     new ManagerTwo('Jago', 'man2'),
-    //     new Commission('1', '2', '3', '4')
-    // ),
-    // new Candidate(
-    //     'Candidate 3',
-    //     '1-1-12',
-    //     '1-1-15',
-    //     '80',
-    //     '60',
-    //     new PrimeVendor('ATT', 'Andi', 'Austin', '1234567890', 'andi@gmail.com', '12345'),
-    //     new SubVendor('Chase', 'Mary', 'Dallas', '6789012345', 'mary@gmail.com', '54321'),
-    //     new SalesEmployee('Harshit', 'Manager'),
-    //     new RecruiterEmployee('Ketan', 'CEO'),
-    //     new ManagerOne('Jigo', 'man1'),
-    //     new ManagerTwo('Jago', 'man2'),
-    //     new Commission('1', '2', '3', '4')
-    // )
+    private getAPICandidates: Candidate[] = [];
+    
     constructor(private http: Http) {}
 
-    getCandidatesByAPI(): Observable<Candidate[]> {
+    getCandidatesByAPI() {
         return this.http.get('http://localhost:8080/api/candidates')
             .map(
-            (response: Response) => <Candidate[]>response.json()
-        );
+
+            (response: Response) => {
+                const candidates: Candidate[] = response.json();
+                return candidates;
+            }
+            )
+            .subscribe(
+            (candidatesData: Candidate[]) => {
+                console.log('ds got candidate');
+                console.log(candidatesData);
+                this.getAPICandidates = candidatesData;
+                console.log('service got candidate');
+                console.log(this.getAPICandidates);
+            }
+            );
+        }
+    
+            // ---- working ----
+    
+    // getCandidatesByAPI(): Observable<Candidate[]> {
+    //     return this.http.get('http://localhost:8080/api/candidates')
+    //         .map(
+    //         (response: Response) => <Candidate[]>response.json()
+    //     );
+    // }
+            // ---- working end----
+
+
+    storeCandidateByAPI(candidate: Candidate) {
+      return this.http.post('http://localhost:8080/api/add-candidate', candidate);
     }
     // setCandidate(candidates: Candidate[]) {
     //     this.getAPICandidates = candidates;
     //     // this.candidateChanged.next(this.candidates.slice());
     // }
 
-    // getAPICandidatesMethod() {
-    //     return this.getAPICandidates;
-    // }
+    setCandidate(candidateData: Candidate[]) {
+        this.getAPICandidates = candidateData;
+        this.candidateChanged.next(this.getAPICandidates.slice());
+    }
+
+    getAPICandidatesMethod() {
+        return this.getAPICandidates.slice();
+    }
 
     getCandidates() {
         return this.candidates    ;
@@ -85,10 +77,10 @@ export class CandidateService {
         return this.candidates;
     }
 
-    addCandiidate(candidate: Candidate) {
-        this.candidates = candidate;
-        //  this.candidateChanged.next(this.candidates.slice());
-    }
+    // addCandiidate(candidate: Candidate) {
+    //     this.candidates = candidate;
+    //     //  this.candidateChanged.next(this.candidates.slice());
+    // }
 
     updateCandidate(index: number, neRecipe: Candidate) {
         this.candidates[index] = neRecipe;
