@@ -5,15 +5,11 @@ label {
   input {
     max-width: 100%;
   }
+
+  .invisible{
+    visibility: hidden;
+  }
   
-  /* hr {
-    
-    clear:both;
-    display:block;
-    width: 96%;               
-    border-top: 1px solid #eee;
-    height: 1px;
-  } */
   
   .form-group {
     margin-bottom: 0;
@@ -40,7 +36,15 @@ label {
     margin-top: 20px;
   } */
   
-  
+  /* hr {
+    
+    clear:both;
+    display:block;
+    width: 96%;               
+    border-top: 1px solid #eee;
+    height: 1px;
+  } */
+    
   /* input {
       border: 2px solid #CCC !important;
       height: 35px;

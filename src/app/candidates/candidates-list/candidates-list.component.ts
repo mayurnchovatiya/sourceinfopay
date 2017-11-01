@@ -26,20 +26,20 @@ export class CandidatesListComponent implements OnInit, OnDestroy {
     private http: Http) { }
 
   ngOnInit() {
-      this.dsService.getCandidates();
-     this.candidates = this.candidateService.getAPICandidatesMethod();
-     this.subscription =  this.candidateService.candidateChanged.subscribe(
-       (candidatesData: Candidate[]) => {
-         this.candidates = candidatesData;
-       }
-      );
-   
-   
-       //  ---- working -----
+    this.dsService.getCandidates();
+    this.candidates = this.candidateService.getAPICandidatesMethod();
+    this.subscription = this.candidateService.candidateChanged.subscribe(
+      (candidatesData: Candidate[]) => {
+        this.candidates = candidatesData;
+      }
+    );
+
+
+    //  ---- working -----
     // this.candidateService.getCandidatesByAPI().subscribe(
     //   (candidateData) => this.candidates = candidateData,
     // );
-          //  ---- working end -----
+    //  ---- working end -----
 
 
 

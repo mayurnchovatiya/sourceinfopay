@@ -18,28 +18,28 @@ export class CandidateService {
 
     private candidates: Candidate;
     private getAPICandidates: Candidate[] = [];
-    
+
     constructor(private http: Http) {}
 
-    getCandidatesByAPI() {
-        return this.http.get('http://localhost:8080/api/candidates')
-            .map(
+    // getCandidatesByAPI() {
+    //     return this.http.get('http://localhost:8080/api/candidates')
+    //         .map(
 
-            (response: Response) => {
-                const candidates: Candidate[] = response.json();
-                return candidates;
-            }
-            )
-            .subscribe(
-            (candidatesData: Candidate[]) => {
-                console.log('ds got candidate');
-                console.log(candidatesData);
-                this.getAPICandidates = candidatesData;
-                console.log('service got candidate');
-                console.log(this.getAPICandidates);
-            }
-            );
-        }
+    //         (response: Response) => {
+    //             const candidates: Candidate[] = response.json();
+    //             return candidates;
+    //         }
+    //         )
+    //         .subscribe(
+    //         (candidatesData: Candidate[]) => {
+    //             console.log('ds got candidate');
+    //             console.log(candidatesData);
+    //             this.getAPICandidates = candidatesData;
+    //             console.log('service got candidate');
+    //             console.log(this.getAPICandidates);
+    //         }
+    //         );
+    //     }
     
             // ---- working ----
     
@@ -52,9 +52,10 @@ export class CandidateService {
             // ---- working end----
 
 
-    storeCandidateByAPI(candidate: Candidate) {
-      return this.http.post('http://localhost:8080/api/add-candidate', candidate);
-    }
+    // storeCandidateByAPI(candidate: Candidate) {
+    //   return this.http.post('http://localhost:8080/api/add-candidate', candidate);
+    // }
+    
     // setCandidate(candidates: Candidate[]) {
     //     this.getAPICandidates = candidates;
     //     // this.candidateChanged.next(this.candidates.slice());

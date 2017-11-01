@@ -45,7 +45,7 @@ export class DataStorageService {
 
     // }
 
-        //    working get api
+    //    working get api
     // getCandidates(): Observable<Candidate[]> {
     //     return this.http.get('http://localhost:8080/api/candidates')
     //         .map(
@@ -53,7 +53,12 @@ export class DataStorageService {
     //     );
     // }
 
+    /* post single candidate */
+    postCandidate(candidate: Candidate) {
+        return this.http.post('http://localhost:8080/api/add-candidate', candidate);
+    }
 
+    /* get candidates */
     getCandidates() {
         return this.http.get('http://localhost:8080/api/candidates')
             .map(
@@ -67,11 +72,53 @@ export class DataStorageService {
             (candidates: Candidate[]) => {
                 console.log('ds got candidate');
                 console.log(candidates);
-                 this.candidateService.setCandidate(candidates);
+                this.candidateService.setCandidate(candidates);
             }
             );
 
     }
+
+    /* send PV detail by ID*/
+    postPvTransaction(id: number, pvDetail: any) {
+        return this.http.post('http://localhost:8080/api/addtransactionsbyid/' + id, pvDetail);
+    }
+
+    /* get PV details*/
+    // getPvtransactions(){
+    //     return this.http.get('')
+    //     .map(
+    //         (response: Response) => {
+
+    //         }
+    //     )
+    //     .subscribe(){
+    //         () => {
+
+    //         }
+    //     }
+    // }
+
+    /* send SV detail by ID*/
+    postSvTransaction(id: number, svDetail: any) {
+        return this.http.post('http://localhost:8080/api/addtransactionsbyid/' + id, svDetail);
+    }
+
+    /* get SV details*/
+    // getSvtransactions(){
+    //     return this.http.get('')
+    //     .map(
+    //         (response: Response) => {
+
+    //         }
+    //     )
+    //     .subscribe(){
+    //         () => {
+
+    //         }
+    //     }
+    // }
+
+
 
 
 }

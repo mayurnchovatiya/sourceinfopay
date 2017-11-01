@@ -76,57 +76,57 @@
 
   <div class="col-xs-12">
 
-    <form id="svForm" class="clearfix" name="pvForm">
+    <form [formGroup]="svForm" (ngSubmit)="onSave()">
 
       <fieldset>
 
 
         <div class="form-group">
           <div class="col-md-6">
-            <label class="control-label" for="candidateName">Start Date</label>
-            <input name="startDate" class="form-control" placeholder="" type="text">
+            <label class="control-label" for="start_date">Start Date</label>
+            <input formControlName="start_date" class="form-control" placeholder="" type="text">
           </div>
         </div>
 
         <div class="form-group">
           <div class="col-md-6">
-            <label class="control-label" for="telephone">End Date</label>
-            <input name="endDate" class="form-control" placeholder="" type="text">
+            <label class="control-label" for="end_date">End Date</label> 
+            <input formControlName="end_date" class="form-control" placeholder="" type="text">
           </div>
         </div>
 
         <div class="form-group">
           <div class="col-md-6">
-            <label class="control-label" for="pvCompany">Total Hours</label>
-            <input name="totalHours" class="form-control" placeholder="" type="text">
+            <label class="control-label" for="hours">Total Hours</label>
+            <input formControlName="hours" class="form-control" placeholder="" type="text">
           </div>
         </div>
 
         <div class="form-group">
           <div class="col-md-6">
-            <label class="control-label" for="email">Calculated Amount</label>
-            <input name="calculatedAmount" class="form-control" placeholder="" type="text">
+            <label class="control-label" for="calculatedAmount">Calculated Amount</label>
+            <input formControlName="calculatedAmount" class="form-control" placeholder="" type="text">
           </div>
         </div>
 
         <div class="form-group">
           <div class="col-md-6">
             <label class="control-label" for="deduction">Deduction</label>
-            <input name="deduction" class="form-control" placeholder="" type="text">
+            <input formControlName="deductionFromPv" class="form-control" placeholder="" type="text">
           </div>
         </div>
 
         <div class="form-group">
           <div class="col-md-6">
-            <label class="control-label" for="actualPayment">Total Amount</label>
-            <input name="totalAmount" class="form-control" placeholder="" type="text">
+            <label class="control-label" for="sub_vendor_amount">Total Amount</label>
+            <input formControlName="sub_vendor_amount" class="form-control" placeholder="" type="text">
           </div>
         </div>
 
         <div class="form-group">
           <div class="col-md-6">
             <label class="control-label" for="comment">Comment</label>
-            <textarea class="form-control" rows="5" name="comment"></textarea>
+            <textarea formControlName="sub_vendor_comments" class="form-control" rows="5"></textarea>
           </div>
         </div>
 
@@ -134,18 +134,25 @@
           <div class="col-md-6">
             <label class="control-label" for="status">Status</label>
             <div class="form-group radio">
-              <label><input type="radio" name="optradio">Paid</label>
+              <label><input formControlName="sub_vendor_paid_status" value="paid"  type="radio">Paid</label>
               
             </div>
 
             <div class="form-group radio">
-              <label><input type="radio" name="optradio">Unpaid</label>
+              <label><input formControlName="sub_vendor_paid_status" value="unpaid" type="radio">Unpaid</label>
               
             </div>
 
             <div class="form-group radio">
-              <label><input type="radio" name="optradio">Will not be paid</label>
+              <label><input formControlName="sub_vendor_paid_status" value="notbepaid" type="radio">Will not be paid</label>
             </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-6">
+            <label class="control-label" for="sub_vendor_invoice_number">Invoice Number</label>
+            <input formControlName="sub_vendor_invoice_number" class="form-control" placeholder="" type="text">
           </div>
         </div>
 
@@ -176,7 +183,7 @@
       <div class="row">
 
         <div class="col-xs-2">
-          <button class="btn btn-success btn-block" (click)="onSave()">Save</button>
+          <button class="btn btn-success btn-block" type="submit">Save</button>
         </div>
         <div class="col-xs-2 ">
           <button class="btn btn-primary btn-block" (click)="onEdit()">Edit</button>

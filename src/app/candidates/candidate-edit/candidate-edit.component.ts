@@ -43,7 +43,7 @@ export class CandidateEditComponent implements OnInit {
       this.candidateService.updateCandidate(this.id, this.candidateForm.value);
     } else {
       // this.candidateService.addCandiidate(this.candidateForm.value);
-      this.candidateService.storeCandidateByAPI(this.candidateForm.value).subscribe(
+      this.dsService.postCandidate(this.candidateForm.value).subscribe(
         (response: Response) => {
           console.log(response);
         },
@@ -75,7 +75,7 @@ export class CandidateEditComponent implements OnInit {
 
     let candidateName = '';
     let startDate = '';
-    let endDate = '';
+   // let endDate = '';
     let pvRate = '';
     let svRate = '';
 
@@ -113,7 +113,7 @@ export class CandidateEditComponent implements OnInit {
     this.candidateForm = new FormGroup({
       'candidateName': new FormControl(candidateName, Validators.required),
       'startDate': new FormControl(startDate),
-      'endDate': new FormControl(endDate),
+     // 'endDate': new FormControl(endDate),
       'pvRate': new FormControl(pvRate),
       'svRate': new FormControl(svRate),
 
