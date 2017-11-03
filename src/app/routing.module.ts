@@ -16,6 +16,7 @@ const appRoutes = [
         path: 'candidates', component: CandidatesComponent, children: [
             { path: '', component: CandidateStartComponent },
             { path: 'new', component: CandidateEditComponent },
+            // { path: ':id/pv', component: PvComponent },
             { path: ':id', component: CandidatesDetailComponent, children: [
                 { path: 'pv', component: PvComponent },
                 { path: 'sv', component: SvComponent },

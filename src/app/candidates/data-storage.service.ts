@@ -5,6 +5,12 @@ import { CandidateService } from './candidate.service';
 import { Headers, Http, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
+/*
+http://localhost:8080/api/addtransactionsbyid/1
+http://192.168.0.37:8080/api/add-candidate
+http://192.168.0.37:8080/api/candidates
+http://192.168.0.37:8080/api/addtransactionsbyid/
+*/
 
 @Injectable()
 export class DataStorageService {
@@ -12,46 +18,6 @@ export class DataStorageService {
         private candidateService: CandidateService) {
     }
 
-
-    //    firebase
-    // storeCandidate() {
-    //    const header = new Headers({'content-type': 'application/json'});
-    //     return this.http.put('https://sourcepay-1fa7a.firebaseio.com/candidates.json',
-    //         this.candidateService.getCandidates());
-    // }
-
-    // storeCandidate() {
-    //     console.log(this.candidateService.getCandidates());
-    //     // const headers = new Headers({'Content-Type': 'application/json'});    // , {headers: headers}
-    //     return this.http.post('http://localhost:8080/api/add-candidate',
-    //         this.candidateService.getCandidates());
-    // }
-
-    //    firebase
-    // getCandidates() {
-    //     this.http.get('https://sourcepay-1fa7a.firebaseio.com/candidates.json')
-    //         .map(
-    //         (response: Response) => {
-    //             const candidates: Candidate[] = response.json();
-
-    //             return candidates;
-    //         }
-    //         )
-    //         .subscribe(
-    //         (candidates: Candidate[]) => {
-    //             this.candidateService.setCandidate(candidates);
-    //         }
-    //         );
-
-    // }
-
-    //    working get api
-    // getCandidates(): Observable<Candidate[]> {
-    //     return this.http.get('http://localhost:8080/api/candidates')
-    //         .map(
-    //         (response: Response) => <Candidate[]>response.json()
-    //     );
-    // }
 
     /* post single candidate */
     postCandidate(candidate: Candidate) {
@@ -84,19 +50,22 @@ export class DataStorageService {
     }
 
     /* get PV details*/
-    // getPvtransactions(){
-    //     return this.http.get('')
-    //     .map(
-    //         (response: Response) => {
-
-    //         }
-    //     )
-    //     .subscribe(){
-    //         () => {
-
-    //         }
-    //     }
-    // }
+    getPvtransactions(id: number) {
+        return this.http.get('http://localhost:8080/api/gettransactions/' + id)
+        .map(
+            (response: Response) => {
+                const pvDetails: any[] = response.json();
+                return pvDetails;
+            }
+        )
+        .subscribe(
+            (pvDetails: any[]) => {
+                console.log('pvDetails in dsService');
+                console.log(pvDetails);
+                this.candidateService.setPvDetails(pvDetails);
+            }
+        );
+    }
 
     /* send SV detail by ID*/
     postSvTransaction(id: number, svDetail: any) {

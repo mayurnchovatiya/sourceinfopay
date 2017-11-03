@@ -1,3 +1,4 @@
+import { CandidateService } from './../../candidate.service';
 import { Response } from '@angular/http';
 import { DataStorageService } from './../../data-storage.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
@@ -5,43 +6,49 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-pv', 
+  selector: 'app-pv',
   templateUrl: './pv.component.html',
   styleUrls: ['./pv.component.css']
 })
-export class PvComponent implements OnInit { 
+export class PvComponent implements OnInit {
   pvForm: FormGroup;
   id: number;
   editMode = false;
+  pvDetails: any[];
   constructor(private route: ActivatedRoute,
-              private router: Router,
-              private dsService: DataStorageService
-              ) { }
+    private router: Router,
+    private dsService: DataStorageService,
+    private candiadteService: CandidateService
+  ) { }
 
   ngOnInit() {
-    this.route.params.subscribe(
+    this.route.parent.params.subscribe(
       (params: Params) => {
-        this.id = +params['id'];
+        this.id = params['id']; 
         this.editMode = params['id'] != null;
         this.initForm();
       }
     );
+    this.dsService.getPvtransactions(this.id);
+    this.pvDetails = this.candiadteService.getPvDetails();
+
   }
 
   onSave() {
     console.log('PV Form');
     console.log(this.pvForm.value);
-    // this.dsService.postPvTransaction(this.id, this.pvForm.value).subscribe(
-    //    (response: Response) => {
-    //      console.log(response);
-    //    },
-    //    (error) => {
-    //      console.error(error);
-    //    },
-    //    () => {
-         
-    //    }
-    // );
+    this.dsService.postPvTransaction(this.id, this.pvForm.value).subscribe(
+      (response: Response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        console.log('PV Detail added');
+        this.dsService.getPvtransactions(this.id);
+      }
+    );
   }
 
   private initForm() {
@@ -53,9 +60,11 @@ export class PvComponent implements OnInit {
     let deductions = '';
     let deductions_to_be_passed_to_sub_vendor = '';
     let prime_vendor_comments = '';
-    let prime_vendor_paid_status = 'unpaid';
+    let prime_vendor_paid_status = 'false';
     let prime_vendor_invoice_number = '';
     let actualPayment = '';
+    let pvRate = '';
+    let svRate = '';
 
     this.pvForm = new FormGroup({
       'start_date': new FormControl(start_date),
@@ -68,7 +77,9 @@ export class PvComponent implements OnInit {
       'prime_vendor_comments': new FormControl(prime_vendor_comments),
       'prime_vendor_paid_status': new FormControl(prime_vendor_paid_status),
       'prime_vendor_invoice_number': new FormControl(prime_vendor_invoice_number),
-      'actualPayment' : new FormControl(actualPayment)
+      'actualPayment': new FormControl(actualPayment),
+      'pvRate': new FormControl(pvRate),
+      'svRate': new FormControl(svRate),
 
     });
 

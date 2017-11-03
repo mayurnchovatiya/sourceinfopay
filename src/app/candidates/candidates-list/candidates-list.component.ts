@@ -61,8 +61,7 @@ export class CandidatesListComponent implements OnInit, OnDestroy {
     // }
     // );
 
-    console.log('in list');
-    console.log(this.candidates);
+ 
     // this.subscription =  this.candidateService.candidateChanged.subscribe(
     //   (candidates: Candidate) => {
     //     this.candidates = candidates;

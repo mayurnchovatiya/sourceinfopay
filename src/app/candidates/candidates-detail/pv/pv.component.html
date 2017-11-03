@@ -25,20 +25,23 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>11/11/2017</td>
-            <td>1/1/2017</td>
-            <td>12/12/2017</td>
-            <td>ABC</td>
-            <td>40</td>
-            <td>2500</td>
-            <td>2500</td>
-            <td>0</td>
-            <td>DPSV1</td>
-            <td>DPSV2</td>
-            <td>Success1</td>
+          <tr *ngIf="!pvDetails || pvDetails.length==0">
+            <td colspan="11" class="text-center">No details to show</td>
           </tr>
-          <tr>
+          <tr *ngFor = "let pvDetail of pvDetails">
+            <td>*</td>
+            <td>{{pvDetail.start_date}}</td>
+            <td>{{pvDetail.end_date}}</td>
+            <td>{{pvDetail.prime_vendor_id.pvName}}</td>
+            <td>{{pvDetail.hours}}</td>
+            <td>{{pvDetail.prime_vendor_amount}}</td>
+            <td>{{pvDetail.prime_vendor_amount}}</td>
+            <td>{{pvDetail.deductions}}</td>
+            <td>*</td>
+            <td>*</td>
+            <td>{{pvDetail.prime_vendor_comments}}</td>
+          </tr>
+          <!-- <tr>
             <td>10/10/2017</td>
             <td>2/2/2017</td>
             <td>11/11/2017</td>
@@ -50,7 +53,7 @@
             <td>DPSV1</td>
             <td>DPSV2</td>
             <td>Success2</td>
-          </tr>
+          </tr> -->
         </tbody>
 
       </table>
@@ -133,7 +136,7 @@
         <div class="form-group">
           <div class="col-md-6">
             <label class="control-label" for="comment">Comment</label>
-            <textarea formControlName="prime_vendor_comments" class="form-control" rows="5"></textarea>
+            <textarea formControlName="prime_vendor_comments" class="form-control" rows="4"></textarea>
           </div>
         </div>
 
@@ -141,12 +144,12 @@
           <div class="col-md-6">
             <label class="control-label" for="status">Status</label>
             <div class="form-group radio">
-              <label><input type="radio" value="paid" formControlName="prime_vendor_paid_status">Paid</label>
+              <label><input type="radio" value="true" formControlName="prime_vendor_paid_status">Paid</label>
               
             </div>
 
             <div class="form-group radio"> 
-              <label><input type="radio" value="unpaid" formControlName="prime_vendor_paid_status">Unpaid</label>
+              <label><input type="radio" value="false" formControlName="prime_vendor_paid_status">Unpaid</label>
               
             </div>
 

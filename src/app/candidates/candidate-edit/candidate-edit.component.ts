@@ -29,20 +29,11 @@ export class CandidateEditComponent implements OnInit {
     );
   }
 
-  // onSaveData() {
-  //   this.dsService.storeCandidate().subscribe(
-  //     (response: Response) => {
-  //       console.log(response);
-  //     }
-  //   );
-  // }
-
   onSubmit() {
     console.log(this.candidateForm.value);
     if (this.editMode) {
-      this.candidateService.updateCandidate(this.id, this.candidateForm.value);
+      // this.candidateService.updateCandidate(this.id, this.candidateForm.value);
     } else {
-      // this.candidateService.addCandiidate(this.candidateForm.value);
       this.dsService.postCandidate(this.candidateForm.value).subscribe(
         (response: Response) => {
           console.log(response);
@@ -51,19 +42,11 @@ export class CandidateEditComponent implements OnInit {
           console.error(error);
         },
         () => {
-          console.log('dsService.getCandidates() calling');
           this.dsService.getCandidates();
-          // this.candidateService.getCandidatesByAPI();
           this.router.navigate(['candidates']);
-
         }
       );
-
     }
-
-
-
-    // this.onSaveData();
     // this.onCancel();
   }
 
@@ -160,6 +143,13 @@ export class CandidateEditComponent implements OnInit {
         'recruiterCommission': new FormControl(recruiterCommission),
         'managerOneCommission': new FormControl(managerOneCommission),
         'managerTwoCommission': new FormControl(managerTwoCommission)
+      }),
+
+      'commission1': new FormGroup({
+        'salesCommission1': new FormControl(salesCommission),
+        'recruiterCommission1': new FormControl(recruiterCommission),
+        'managerOneCommission1': new FormControl(managerOneCommission),
+        'managerTwoCommission1': new FormControl(managerTwoCommission)
       })
 
     });

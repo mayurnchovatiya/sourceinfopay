@@ -22,15 +22,15 @@ export class CandidatesDetailComponent implements OnInit {
     this.route.params.subscribe(
       (params: Params) => {
         this.id = +params['id'];
-        this.candidates = this.candidateService.getCandidate(this.id);
+      //  this.candidates = this.candidateService.getCandidate(this.id);
       }
     );
   }
 
-  onEditCandidate() {
-    this.router.navigate(['edit'], { relativeTo: this.route });
-    // this.router.navigate(['../', this.id, 'edit']. {relativeTo: this.route});
-  }
+  // onEditCandidate() {
+  //   this.router.navigate(['edit'], { relativeTo: this.route });
+  //   // this.router.navigate(['../', this.id, 'edit']. {relativeTo: this.route});
+  // }
 
   onPV() {
     this.router.navigate(['pv'], { relativeTo: this.route });
