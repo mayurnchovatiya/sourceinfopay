@@ -1,37 +1,51 @@
+import { Subscription } from 'rxjs/Subscription';
+import { Transaction } from './../../../model/transaction.model';
 import { CandidateService } from './../../candidate.service';
 import { Response } from '@angular/http';
 import { DataStorageService } from './../../data-storage.service';
-import { ActivatedRoute, Router, Params } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Params, Resolve, Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-pv',
   templateUrl: './pv.component.html',
   styleUrls: ['./pv.component.css']
 })
-export class PvComponent implements OnInit {
+export class PvComponent implements OnInit, OnDestroy {
   pvForm: FormGroup;
   id: number;
   editMode = false;
   pvDetails: any[];
+  subscription: Subscription;
   constructor(private route: ActivatedRoute,
     private router: Router,
     private dsService: DataStorageService,
     private candiadteService: CandidateService
   ) { }
 
+//   resolve (route: ActivatedRouteSnapshot): Promise<any> {
+//     return this.dsService.getPvtransactions(this.id);
+// }
+
   ngOnInit() {
     this.route.parent.params.subscribe(
       (params: Params) => {
         this.id = params['id']; 
         this.editMode = params['id'] != null;
+        console.log('id: ' + this.id);
         this.initForm();
+        this.dsService.getPvtransactions(this.id);
+        this.pvDetails = this.candiadteService.getPvDetails();
+        this.subscription = this.candiadteService.pvDetailsChanged.subscribe(
+          (pvDetailsData: any[]) => {
+            this.pvDetails = pvDetailsData;
+          }
+        );
+        console.log('ngOnInit(): pvDetails:');
+        console.log(this.pvDetails);
       }
     );
-    this.dsService.getPvtransactions(this.id);
-    this.pvDetails = this.candiadteService.getPvDetails();
-
   }
 
   onSave() {
@@ -47,6 +61,9 @@ export class PvComponent implements OnInit {
       () => {
         console.log('PV Detail added');
         this.dsService.getPvtransactions(this.id);
+        this.pvDetails = this.candiadteService.getPvDetails();
+        console.log('on save(): pvDetails:');
+        console.log(this.pvDetails);
       }
     );
   }
@@ -83,6 +100,10 @@ export class PvComponent implements OnInit {
 
     });
 
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 

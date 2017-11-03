@@ -25,22 +25,26 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngIf="!pvDetails || pvDetails.length==0">
-            <td colspan="11" class="text-center">No details to show</td>
-          </tr>
           <tr *ngFor = "let pvDetail of pvDetails">
             <td>*</td>
-            <td>{{pvDetail.start_date}}</td>
-            <td>{{pvDetail.end_date}}</td>
-            <td>{{pvDetail.prime_vendor_id.pvName}}</td>
-            <td>{{pvDetail.hours}}</td>
-            <td>{{pvDetail.prime_vendor_amount}}</td>
-            <td>{{pvDetail.prime_vendor_amount}}</td>
-            <td>{{pvDetail.deductions}}</td>
+            <td>{{pvDetail?.start_date}}</td>
+            <td>{{pvDetail?.end_date}}</td>
+            <td>{{pvDetail?.prime_vendor_id?.pvName}}</td>
+            <td>{{pvDetail?.hours}}</td>
+            <td>{{pvDetail?.prime_vendor_amount}}</td>
+            <td>{{pvDetail?.prime_vendor_amount}}</td>
+            <td>{{pvDetail?.deductions}}</td>
             <td>*</td>
             <td>*</td>
-            <td>{{pvDetail.prime_vendor_comments}}</td>
+            <td>{{pvDetail?.prime_vendor_comments}}</td>
           </tr>
+          <tr *ngIf="!pvDetails">
+              <td colspan="11" class="text-center">Lodding data. Please wait...</td>
+            </tr>
+          <tr *ngIf="!pvDetails || pvDetails.length==0">
+            <td colspan="11" class="text-center">No transactions to show</td>
+          </tr>
+
           <!-- <tr>
             <td>10/10/2017</td>
             <td>2/2/2017</td>

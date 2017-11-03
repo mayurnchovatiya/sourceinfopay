@@ -23,7 +23,7 @@ export class CandidateEditComponent implements OnInit {
     this.route.params.subscribe(
       (params: Params) => {
         this.id = +params['id'];
-        this.editMode = params['id'] != null;
+        this.editMode = params['id'] != null; 
         this.initForm();
       }
     );

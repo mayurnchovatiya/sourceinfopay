@@ -15,6 +15,7 @@ import { Candidate } from './../model/candidate.model';
 @Injectable()
 export class CandidateService {
     candidateChanged = new Subject<Candidate[]>();
+    pvDetailsChanged = new Subject<any[]>();
 
     private candidate: Candidate;
     private candidatesArray: Candidate[] = [];
@@ -33,10 +34,13 @@ export class CandidateService {
 
     setPvDetails(pvDetails: any[]) {
         this.pvDetails = pvDetails;
+        this.pvDetailsChanged.next(this.pvDetails.slice());
+        console.log('candidate sercice: setPvDetails():');
+        console.log(this.pvDetails);
     }
 
     getPvDetails() {
-        return this.pvDetails;
+        return this.pvDetails.slice();
     }
 
     // getCandidates() {

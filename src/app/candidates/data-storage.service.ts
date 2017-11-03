@@ -1,3 +1,4 @@
+import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Candidate } from './../model/candidate.model';
 import { CandidateService } from './candidate.service';
@@ -36,8 +37,6 @@ export class DataStorageService {
             )
             .subscribe(
             (candidates: Candidate[]) => {
-                console.log('ds got candidate');
-                console.log(candidates);
                 this.candidateService.setCandidate(candidates);
             }
             );
@@ -58,14 +57,24 @@ export class DataStorageService {
                 return pvDetails;
             }
         )
-        .subscribe(
+        .subscribe( 
             (pvDetails: any[]) => {
-                console.log('pvDetails in dsService');
+                console.log('dsService: pvDetails:');
                 console.log(pvDetails);
                 this.candidateService.setPvDetails(pvDetails);
             }
         );
     }
+
+    // resolve(route: ActivatedRouteSnapshot): Promise<any> | boolean {
+    //     return this.http
+    //         .get('api/Movie/GetAllMovies', this.options)
+    //         .toPromise()
+    //         .then((result: MovieListModel) => {
+    //             return result;
+    //         })
+    //         .catch(error => console.log(error));
+    // }
 
     /* send SV detail by ID*/
     postSvTransaction(id: number, svDetail: any) {
