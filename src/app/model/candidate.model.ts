@@ -9,6 +9,7 @@ import { PrimeVendor } from './primevendor.model';
 
 export class Candidate {
     constructor(
+        public candidateId: number,
         public candidateName: string,
         public startDate: string,
         public endDate: string,

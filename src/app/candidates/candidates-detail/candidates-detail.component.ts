@@ -5,10 +5,10 @@ import { Candidate } from './../../model/candidate.model';
 
 
 @Component({
-  selector: 'app-candidates-detail', 
+  selector: 'app-candidates-detail',
   templateUrl: './candidates-detail.component.html',
   styleUrls: ['./candidates-detail.component.css']
-}) 
+})
 export class CandidatesDetailComponent implements OnInit {
   candidates: Candidate;
   id: number;
@@ -22,15 +22,14 @@ export class CandidatesDetailComponent implements OnInit {
     this.route.params.subscribe(
       (params: Params) => {
         this.id = +params['id'];
-      //  this.candidates = this.candidateService.getCandidate(this.id);
       }
     );
   }
 
-  // onEditCandidate() {
-  //   this.router.navigate(['edit'], { relativeTo: this.route });
-  //   // this.router.navigate(['../', this.id, 'edit']. {relativeTo: this.route});
-  // }
+  onEditCandidate() {
+    this.router.navigate(['edit'], { relativeTo: this.route });
+    // this.router.navigate(['../', this.id, 'edit']. {relativeTo: this.route});
+  }
 
   onPV() {
     this.router.navigate(['pv'], { relativeTo: this.route });

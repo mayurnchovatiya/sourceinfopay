@@ -27,46 +27,18 @@ export class CandidatesListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.dsService.getCandidates();
-    this.candidates = this.candidateService.getAPICandidatesMethod();
+    this.candidates = this.candidateService.getCandidatesArray();
     this.subscription = this.candidateService.candidateChanged.subscribe(
       (candidatesData: Candidate[]) => {
-        this.candidates = candidatesData;
+        this.candidates = candidatesData; 
       }
     );
-
 
     //  ---- working -----
     // this.candidateService.getCandidatesByAPI().subscribe(
     //   (candidateData) => this.candidates = candidateData,
     // );
     //  ---- working end -----
-
-
-
-    // this.http.get('http://localhost:8080/api/candidates')
-    // .map(
-
-    // (response: Response) => {
-    //     const candidates: Candidate[] = response.json();
-    //     console.log('ds getcandidate1');
-    //     console.log(candidates);
-    //     return candidates;
-    // }
-    // )
-    // .subscribe(
-    // (candidates: Candidate[]) => {
-    //     console.log('ds getcandidate2');
-    //     console.log(candidates);
-    //     // this.candidateService.setCandidate(candidates);
-    // }
-    // );
-
- 
-    // this.subscription =  this.candidateService.candidateChanged.subscribe(
-    //   (candidates: Candidate) => {
-    //     this.candidates = candidates;
-    //   }
-    // );
   }
 
   onNewCandidate() {

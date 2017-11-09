@@ -1,3 +1,4 @@
+import { Candidate } from './../../model/candidate.model';
 import { Response } from '@angular/http';
 import { DataStorageService } from './../data-storage.service';
 import { CandidateService } from './../candidate.service';
@@ -14,6 +15,8 @@ export class CandidateEditComponent implements OnInit {
   id: number;
   editMode = false;
   candidateForm: FormGroup;
+  candidate: Candidate;
+
   constructor(private route: ActivatedRoute,
     private candidateService: CandidateService,
     private router: Router,
@@ -23,7 +26,13 @@ export class CandidateEditComponent implements OnInit {
     this.route.params.subscribe(
       (params: Params) => {
         this.id = +params['id'];
-        this.editMode = params['id'] != null; 
+        this.editMode = params['id'] != null;
+        console.log('OnInit editmode: ' + this.editMode);
+        if (this.editMode) {
+          this.candidate = this.candidateService.getCandidateById(this.id);
+          console.log('after calling API candidate: ');
+          console.log(this.candidate);
+        }
         this.initForm();
       }
     );
@@ -33,6 +42,20 @@ export class CandidateEditComponent implements OnInit {
     console.log(this.candidateForm.value);
     if (this.editMode) {
       // this.candidateService.updateCandidate(this.id, this.candidateForm.value);
+      console.log('onSubmit: editMode: ' + this.editMode);
+
+      this.dsService.putCandidate(this.id, this.candidateForm.value).subscribe(
+        (response: Response) => {
+          console.log(response);
+        },
+        (error) => {
+          console.error(error);
+        },
+        () => {
+          this.dsService.getCandidates();
+          this.router.navigate(['candidates']);
+        }
+      );
     } else {
       this.dsService.postCandidate(this.candidateForm.value).subscribe(
         (response: Response) => {
@@ -55,10 +78,10 @@ export class CandidateEditComponent implements OnInit {
   }
 
   private initForm() {
-
+    let candidateId = null;
     let candidateName = '';
-    let startDate = '';
-   // let endDate = '';
+    let startDate = new Date();
+    // let endDate = '';
     let pvRate = '';
     let svRate = '';
 
@@ -93,10 +116,54 @@ export class CandidateEditComponent implements OnInit {
     let managerOneCommission = '';
     let managerTwoCommission = '';
 
-    this.candidateForm = new FormGroup({
+    if (this.editMode) {
+      // this.dsService.getCandidateById(this.id);
+      // const candidate = this.candidateService.getCandidateById();
+      // console.log('after calling API candidate: ');
+      // console.log(candidate);
+      candidateId = this.candidate.candidateId;
+      candidateName = this.candidate.candidateName;
+      startDate = new Date(this.candidate.startDate);
+      // let endDate = '';
+      pvRate = this.candidate.pvRate;
+      svRate = this.candidate.svRate;
+      pvName = this.candidate.primeVendor.pvName;
+      pvContactPerson = this.candidate.primeVendor.pvContactPerson;
+      pvAddress = this.candidate.primeVendor.pvAddress;
+      pvTelephone = this.candidate.primeVendor.pvTelephone;
+      pvEmail = this.candidate.primeVendor.pvEmail;
+      pvFax = this.candidate.primeVendor.pvFax;
+
+      svName = this.candidate.subVendor.svName;
+      svContactPerson = this.candidate.subVendor.svContactPerson;
+      svAddress = this.candidate.subVendor.svAddress;
+      svTelephone = this.candidate.subVendor.svTelephone;
+      svEmail = this.candidate.subVendor.svEmail;
+      svFax = this.candidate.subVendor.svFax;
+
+      seName = this.candidate.salesEmployee.name;
+      seRole = this.candidate.salesEmployee.role;
+
+      reName = this.candidate.recruiterEmployee.name;
+      reRole = this.candidate.recruiterEmployee.role;
+
+      moName = this.candidate.managerOne.name;
+      moRole = this.candidate.managerOne.role;
+
+      mtName = this.candidate.managerTwo.name;
+      mtRole = this.candidate.managerTwo.role;
+
+      salesCommission = this.candidate.commission.salesCommission;
+      recruiterCommission = this.candidate.commission.recruiterCommission;
+      managerOneCommission = this.candidate.commission.managerOneCommission;
+      managerTwoCommission = this.candidate.commission.managerTwoCommission;
+    }
+
+    this.candidateForm = new FormGroup({ 
+      'candidateId': new FormControl(candidateId),
       'candidateName': new FormControl(candidateName, Validators.required),
       'startDate': new FormControl(startDate),
-     // 'endDate': new FormControl(endDate),
+      // 'endDate': new FormControl(endDate),
       'pvRate': new FormControl(pvRate),
       'svRate': new FormControl(svRate),
 

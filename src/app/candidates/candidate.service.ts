@@ -15,32 +15,45 @@ import { Candidate } from './../model/candidate.model';
 @Injectable()
 export class CandidateService {
     candidateChanged = new Subject<Candidate[]>();
+    // candidateByIdChanged = new Subject<Candidate>();
     pvDetailsChanged = new Subject<any[]>();
 
-    private candidate: Candidate;
+    // private candidate: Candidate;
     private candidatesArray: Candidate[] = [];
     private pvDetails: any[] = [];
+    private employees: any[] = [];
 
     constructor(private http: Http) {}
 
-    setCandidate(candidateData: Candidate[]) {
-        this.candidatesArray = candidateData;
+    setCandidatesArray(candidatesData: Candidate[]) {
+        this.candidatesArray = candidatesData;
         this.candidateChanged.next(this.candidatesArray.slice());
     }
 
-    getAPICandidatesMethod() {
+    getCandidatesArray() {
         return this.candidatesArray.slice();
+    }
+
+    // setCandidateById(candidateData: Candidate) {
+    //     this.candidate = candidateData;
+    //     this.candidateByIdChanged.next(this.candidate);
+    // }
+
+    getCandidateById(index: number) {
+         return this.candidatesArray.filter(candidateData => candidateData.candidateId === index)[0];
     }
 
     setPvDetails(pvDetails: any[]) {
         this.pvDetails = pvDetails;
         this.pvDetailsChanged.next(this.pvDetails.slice());
-        console.log('candidate sercice: setPvDetails():');
-        console.log(this.pvDetails);
     }
 
     getPvDetails() {
         return this.pvDetails.slice();
+    }
+
+    setEmployeesArray(employees) {
+        this.employees = employees;
     }
 
     // getCandidates() {
@@ -56,8 +69,8 @@ export class CandidateService {
     //       this.candidateChanged.next(this.candidates.slice());
     // }
 
-    // updateCandidate(index: number, neRecipe: Candidate) {
-    //     this.candidates[index] = neRecipe;
+    // updateCandidate(index: number, newRecipe: Candidate) {
+    //     this.candidates[index] = newRecipe;
     //      this.candidateChanged.next(this.candidates.slice());
     // }
 

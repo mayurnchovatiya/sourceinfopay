@@ -11,6 +11,8 @@ http://localhost:8080/api/addtransactionsbyid/1
 http://192.168.0.37:8080/api/add-candidate
 http://192.168.0.37:8080/api/candidates
 http://192.168.0.37:8080/api/addtransactionsbyid/
+http://localhost:8080/api/getCandidateById/2
+http://localhost:8080/api/update-candidate
 */
 
 @Injectable()
@@ -37,10 +39,35 @@ export class DataStorageService {
             )
             .subscribe(
             (candidates: Candidate[]) => {
-                this.candidateService.setCandidate(candidates);
+                this.candidateService.setCandidatesArray(candidates);
             }
             );
 
+    }
+
+    /* get candidate By Id */
+    // getCandidateById(id: number) {
+    //     return this.http.get('http://localhost:8080/api/getCandidateById/' + id)
+    //         .map(
+
+    //         (response: Response) => {
+    //             const candidate: Candidate = response.json();
+    //             return candidate;
+    //         }
+    //         )
+    //         .subscribe(
+    //         (candidate: Candidate) => {
+    //             console.log('dsService: Candidate: ');
+    //             console.log(candidate);
+    //             this.candidateService.setCandidateById(candidate);
+    //         }
+    //         );
+
+    // }
+
+    /* Update Candidate by ID*/
+    putCandidate(index: number, candidate: Candidate) {
+        return this.http.put('http://localhost:8080/api/update-candidate', candidate);
     }
 
     /* send PV detail by ID*/
@@ -95,6 +122,28 @@ export class DataStorageService {
     //         }
     //     }
     // }
+
+    /* post employees */
+    postEmployee(employee) {
+        return this.http.post('http://localhost:8080/api/add-employee', employee);
+    }
+    /* get employees */
+    getEmployees() {
+        return this.http.get('http://localhost:8080/api/employees')
+            .map(
+
+            (response: Response) => {
+                const employees: any = response.json();
+                return employees;
+            }
+            )
+            .subscribe(
+            (employees: any) => {
+                this.candidateService.setEmployeesArray(employees);
+            }
+            );
+
+    }
 
 
 

@@ -1,15 +1,29 @@
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Response } from '@angular/http';
 import { DataStorageService } from './../candidates/data-storage.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+  editMode = true;
+  constructor(private dsService: DataStorageService,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
-  constructor(private dsService: DataStorageService){}
+  ngOnInit() {
+  }
+
+  // onEditCandidate() {
+  //   if (this.editMode) {
+  //     this.router.navigate(['edit'], { relativeTo: this.route });
+  //   } else {
+  //     alert('please select Candidate to edit!');
+  //   }
+  // }
 
   // onSaveData() {
   //   this.dsService.storeCandidate().subscribe(

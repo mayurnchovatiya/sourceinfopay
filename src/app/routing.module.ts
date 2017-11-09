@@ -1,3 +1,4 @@
+import { EmployeesComponent } from './employees/employees.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SiempComponent } from './candidates/candidates-detail/siemp/siemp.component';
@@ -11,19 +12,20 @@ import { CandidatesComponent } from './candidates/candidates.component';
 
 const appRoutes = [
     { path: '', redirectTo: '/candidates', pathMatch: 'full' },
-    { path: 'home', redirectTo: '/candidates', pathMatch: 'full' },
+    { path: 'employees', component: EmployeesComponent},
     {
         path: 'candidates', component: CandidatesComponent, children: [
             { path: '', component: CandidateStartComponent },
             { path: 'new', component: CandidateEditComponent },
-            // { path: ':id/pv', component: PvComponent },
-            { path: ':id', component: CandidatesDetailComponent, children: [
-                { path: 'pv', component: PvComponent },
-                { path: 'sv', component: SvComponent },
-                { path: 'paid', component: PaidComponent },
-                { path: 'siemp', component: SiempComponent }
-            ] },
-            // { path: ':id/edit', component: CandidateEditComponent },
+            {
+                path: ':id', component: CandidatesDetailComponent, children: [
+                    { path: 'pv', component: PvComponent },
+                    { path: 'sv', component: SvComponent },
+                    { path: 'paid', component: PaidComponent },
+                    { path: 'siemp', component: SiempComponent }
+                ]
+            },
+            { path: ':id/edit', component: CandidateEditComponent }
         ]
     }
 ];

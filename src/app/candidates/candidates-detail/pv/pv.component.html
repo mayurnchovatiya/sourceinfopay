@@ -27,8 +27,8 @@
         <tbody>
           <tr *ngFor = "let pvDetail of pvDetails">
             <td>*</td>
-            <td>{{pvDetail?.start_date}}</td>
-            <td>{{pvDetail?.end_date}}</td>
+            <td>{{pvDetail?.start_date | date: 'MM/dd/yyyy'}}</td>
+            <td>{{pvDetail?.end_date | date: 'MM/dd/yyyy'}}</td>
             <td>{{pvDetail?.prime_vendor_id?.pvName}}</td>
             <td>{{pvDetail?.hours}}</td>
             <td>{{pvDetail?.prime_vendor_amount}}</td>
@@ -114,7 +114,7 @@
             <label class="control-label" for="expectedAmount">Expected Amount</label>
             <input formControlName="prime_vendor_amount" class="form-control" placeholder="" type="text">
           </div>
-        </div>
+        </div> 
 
         <div class="form-group">
           <div class="col-md-6">
@@ -169,6 +169,13 @@
             <input formControlName="prime_vendor_invoice_number" class="form-control" placeholder="" type="text">
           </div>
         </div>
+
+        <div class="form-group">
+            <div class="col-md-6">
+              <label class="control-label" for="pvRate">PV Rate</label>
+              <input formControlName="pvRate" class="form-control" placeholder="" type="text">
+            </div>
+          </div>
 
 
       </fieldset>

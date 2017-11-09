@@ -31,9 +31,8 @@ export class PvComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.parent.params.subscribe(
       (params: Params) => {
-        this.id = params['id']; 
+        this.id = params['id'];
         this.editMode = params['id'] != null;
-        console.log('id: ' + this.id);
         this.initForm();
         this.dsService.getPvtransactions(this.id);
         this.pvDetails = this.candiadteService.getPvDetails();
@@ -42,8 +41,6 @@ export class PvComponent implements OnInit, OnDestroy {
             this.pvDetails = pvDetailsData;
           }
         );
-        console.log('ngOnInit(): pvDetails:');
-        console.log(this.pvDetails);
       }
     );
   }
@@ -81,11 +78,10 @@ export class PvComponent implements OnInit, OnDestroy {
     let prime_vendor_invoice_number = '';
     let actualPayment = '';
     let pvRate = '';
-    let svRate = '';
 
     this.pvForm = new FormGroup({
       'start_date': new FormControl(start_date),
-      'end_date': new FormControl(end_date),
+      'end_date': new FormControl(end_date), 
       'prime_vendor_paid_date': new FormControl(prime_vendor_paid_date),
       'hours': new FormControl(hours),
       'prime_vendor_amount': new FormControl(prime_vendor_amount),
@@ -95,9 +91,7 @@ export class PvComponent implements OnInit, OnDestroy {
       'prime_vendor_paid_status': new FormControl(prime_vendor_paid_status),
       'prime_vendor_invoice_number': new FormControl(prime_vendor_invoice_number),
       'actualPayment': new FormControl(actualPayment),
-      'pvRate': new FormControl(pvRate),
-      'svRate': new FormControl(svRate),
-
+      'pvRate': new FormControl(pvRate)
     });
 
   }

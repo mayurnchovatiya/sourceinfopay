@@ -10,5 +10,4 @@ import { Candidate } from './../../../model/candidate.model';
 export class CandidatesItemComponent {
   @Input() candidates: Candidate;
   @Input() index: number;
-  
-}
+}  

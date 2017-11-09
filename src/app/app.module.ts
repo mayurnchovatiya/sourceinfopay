@@ -20,6 +20,7 @@ import { SvComponent } from './candidates/candidates-detail/sv/sv.component';
 import { PaidComponent } from './candidates/candidates-detail/paid/paid.component';
 import { SiempComponent } from './candidates/candidates-detail/siemp/siemp.component';
 import { DropdownDirective } from './shared/dropdown.directive';
+import { EmployeesComponent } from './employees/employees.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { DropdownDirective } from './shared/dropdown.directive';
     SvComponent,
     PaidComponent,
     SiempComponent,
-    DropdownDirective
+    DropdownDirective,
+    EmployeesComponent
   ],
   imports: [
     BrowserModule,
