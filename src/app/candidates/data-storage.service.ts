@@ -39,6 +39,8 @@ export class DataStorageService {
             )
             .subscribe(
             (candidates: Candidate[]) => {
+                console.log('in ds service: candidate:');
+                console.log(candidates);
                 this.candidateService.setCandidatesArray(candidates);
             }
             );
@@ -93,15 +95,9 @@ export class DataStorageService {
         );
     }
 
-    // resolve(route: ActivatedRouteSnapshot): Promise<any> | boolean {
-    //     return this.http
-    //         .get('api/Movie/GetAllMovies', this.options)
-    //         .toPromise()
-    //         .then((result: MovieListModel) => {
-    //             return result;
-    //         })
-    //         .catch(error => console.log(error));
-    // }
+    putPvTransaction(id: number, pvDetail: any) {
+        return this.http.put('http://localhost:8080/api/updatetransactions/' + id, pvDetail);
+    }
 
     /* send SV detail by ID*/
     postSvTransaction(id: number, svDetail: any) {

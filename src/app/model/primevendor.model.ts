@@ -1,6 +1,7 @@
 
 export class PrimeVendor {
     constructor(
+        public primeVendorId: number,
         public pvName: string,
         public pvContactPerson: string,
         public pvAddress: string,

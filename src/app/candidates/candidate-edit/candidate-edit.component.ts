@@ -27,11 +27,8 @@ export class CandidateEditComponent implements OnInit {
       (params: Params) => {
         this.id = +params['id'];
         this.editMode = params['id'] != null;
-        console.log('OnInit editmode: ' + this.editMode);
         if (this.editMode) {
           this.candidate = this.candidateService.getCandidateById(this.id);
-          console.log('after calling API candidate: ');
-          console.log(this.candidate);
         }
         this.initForm();
       }
@@ -39,11 +36,9 @@ export class CandidateEditComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log('on Submit:');
     console.log(this.candidateForm.value);
     if (this.editMode) {
-      // this.candidateService.updateCandidate(this.id, this.candidateForm.value);
-      console.log('onSubmit: editMode: ' + this.editMode);
-
       this.dsService.putCandidate(this.id, this.candidateForm.value).subscribe(
         (response: Response) => {
           console.log(response);
@@ -80,11 +75,12 @@ export class CandidateEditComponent implements OnInit {
   private initForm() {
     let candidateId = null;
     let candidateName = '';
-    let startDate = new Date();
+    let startDate = new Date('');
     // let endDate = '';
     let pvRate = '';
     let svRate = '';
 
+    let primeVendorId = null;
     let pvName = '';
     let pvContactPerson = '';
     let pvAddress = '';
@@ -92,6 +88,7 @@ export class CandidateEditComponent implements OnInit {
     let pvEmail = '';
     let pvFax = '';
 
+    let subVendorId = null;
     let svName = '';
     let svContactPerson = '';
     let svAddress = '';
@@ -111,22 +108,21 @@ export class CandidateEditComponent implements OnInit {
     let mtName = '';
     let mtRole = '';
 
+    let commissionId = null;
     let salesCommission = '';
     let recruiterCommission = '';
     let managerOneCommission = '';
     let managerTwoCommission = '';
 
     if (this.editMode) {
-      // this.dsService.getCandidateById(this.id);
-      // const candidate = this.candidateService.getCandidateById();
-      // console.log('after calling API candidate: ');
-      // console.log(candidate);
       candidateId = this.candidate.candidateId;
       candidateName = this.candidate.candidateName;
       startDate = new Date(this.candidate.startDate);
       // let endDate = '';
       pvRate = this.candidate.pvRate;
       svRate = this.candidate.svRate;
+
+      primeVendorId = this.candidate.primeVendor.primeVendorId;
       pvName = this.candidate.primeVendor.pvName;
       pvContactPerson = this.candidate.primeVendor.pvContactPerson;
       pvAddress = this.candidate.primeVendor.pvAddress;
@@ -134,6 +130,7 @@ export class CandidateEditComponent implements OnInit {
       pvEmail = this.candidate.primeVendor.pvEmail;
       pvFax = this.candidate.primeVendor.pvFax;
 
+      subVendorId = this.candidate.subVendor.subVendorId;
       svName = this.candidate.subVendor.svName;
       svContactPerson = this.candidate.subVendor.svContactPerson;
       svAddress = this.candidate.subVendor.svAddress;
@@ -153,13 +150,14 @@ export class CandidateEditComponent implements OnInit {
       mtName = this.candidate.managerTwo.name;
       mtRole = this.candidate.managerTwo.role;
 
+      commissionId = this.candidate.commission.commissionId;
       salesCommission = this.candidate.commission.salesCommission;
       recruiterCommission = this.candidate.commission.recruiterCommission;
       managerOneCommission = this.candidate.commission.managerOneCommission;
       managerTwoCommission = this.candidate.commission.managerTwoCommission;
     }
 
-    this.candidateForm = new FormGroup({ 
+    this.candidateForm = new FormGroup({
       'candidateId': new FormControl(candidateId),
       'candidateName': new FormControl(candidateName, Validators.required),
       'startDate': new FormControl(startDate),
@@ -168,6 +166,7 @@ export class CandidateEditComponent implements OnInit {
       'svRate': new FormControl(svRate),
 
       'primeVendor': new FormGroup({
+        'primeVendorId': new FormControl(primeVendorId),
         'pvName': new FormControl(pvName, Validators.required),
         'pvContactPerson': new FormControl(pvContactPerson),
         'pvAddress': new FormControl(pvAddress),
@@ -177,6 +176,7 @@ export class CandidateEditComponent implements OnInit {
       }),
 
       'subVendor': new FormGroup({
+        'subVendorId': new FormControl(subVendorId),
         'svName': new FormControl(svName, Validators.required),
         'svContactPerson': new FormControl(svContactPerson),
         'svAddress': new FormControl(svAddress),
@@ -206,39 +206,14 @@ export class CandidateEditComponent implements OnInit {
       }),
 
       'commission': new FormGroup({
+        'commissionId': new FormControl(commissionId),
         'salesCommission': new FormControl(salesCommission),
         'recruiterCommission': new FormControl(recruiterCommission),
         'managerOneCommission': new FormControl(managerOneCommission),
         'managerTwoCommission': new FormControl(managerTwoCommission)
-      }),
-
-      'commission1': new FormGroup({
-        'salesCommission1': new FormControl(salesCommission),
-        'recruiterCommission1': new FormControl(recruiterCommission),
-        'managerOneCommission1': new FormControl(managerOneCommission),
-        'managerTwoCommission1': new FormControl(managerTwoCommission)
       })
-
     });
 
-    // let recipeName = '';
-    // let recipeImagePath = '';
-    // let recipeDescription = '';
-    // let recipeIngredients = new FormArray([]);
-
-    // if (this.editMode) {
-    //   const recipe = this.candidateService.getCandidate(this.id);
-    //   recipeName = recipe.name;
-    //   recipeImagePath = recipe.imagePath;
-    //   recipeDescription = recipe.description;
-    // }
-
-    // this.candidateForm = new FormGroup({
-    //   'name': new FormControl(recipeName, Validators.required),
-    //   'imagePath': new FormControl(recipeImagePath, Validators.required),
-    //   'description': new FormControl(recipeDescription, Validators.required),
-    //   'ingredients': recipeIngredients
-    // });
   }
 
 }

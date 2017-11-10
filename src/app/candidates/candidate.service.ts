@@ -52,6 +52,10 @@ export class CandidateService {
         return this.pvDetails.slice();
     }
 
+    getPvDetailsByTid(index: number) {
+        return this.pvDetails.filter(pvDetailsData => pvDetailsData.transactionId === index)[0];
+    }
+
     setEmployeesArray(employees) {
         this.employees = employees;
     }

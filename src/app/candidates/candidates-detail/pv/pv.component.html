@@ -25,7 +25,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor = "let pvDetail of pvDetails">
+          <tr style="cursor:pointer" 
+              *ngFor = "let pvDetail of pvDetails"
+              (click)="onEditItem(pvDetail.transactionId)"
+          >
             <td>*</td>
             <td>{{pvDetail?.start_date | date: 'MM/dd/yyyy'}}</td>
             <td>{{pvDetail?.end_date | date: 'MM/dd/yyyy'}}</td>
@@ -45,19 +48,6 @@
             <td colspan="11" class="text-center">No transactions to show</td>
           </tr>
 
-          <!-- <tr>
-            <td>10/10/2017</td>
-            <td>2/2/2017</td>
-            <td>11/11/2017</td>
-            <td>XYZ</td>
-            <td>40</td>
-            <td>3000</td>
-            <td>3000</td>
-            <td>0</td>
-            <td>DPSV1</td>
-            <td>DPSV2</td>
-            <td>Success2</td>
-          </tr> -->
         </tbody>
 
       </table>
@@ -76,7 +66,7 @@
 
   <div class="col-xs-12">
 
-    <form [formGroup]="pvForm" (ngSubmit)="onSave()">
+    <form [formGroup]="pvForm" (ngSubmit)="onSubmit()">
 
       <fieldset>
 
@@ -185,13 +175,10 @@
       <div class="row">
 
         <div class="col-xs-2">
-          <button class="btn btn-success btn-block" type="submit">Save</button>
+          <button class="btn btn-success btn-block" type="submit">{{editMode ? 'Update' : 'Save'}}</button>
         </div>
         <div class="col-xs-2 ">
-          <button class="btn btn-primary btn-block" (click)="onEdit()">Edit</button>
-        </div>
-        <div class="col-xs-2 ">
-          <button class="btn btn-danger btn-block" (click)="onCancel()">Cancel</button>
+          <button class="btn btn-danger btn-block" (click)="onReset()">Cancel</button>
         </div>
 
 

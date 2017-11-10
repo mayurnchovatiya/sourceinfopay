@@ -1,6 +1,7 @@
 
 export class SubVendor {
     constructor(
+        public subVendorId: number,
         public svName: string,
         public svContactPerson: string,
         public svAddress: string,
