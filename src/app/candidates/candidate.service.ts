@@ -1,3 +1,4 @@
+import { Transaction } from './../model/transaction.model';
 import { Http, Response } from '@angular/http';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
@@ -15,13 +16,15 @@ import { Candidate } from './../model/candidate.model';
 @Injectable()
 export class CandidateService {
     candidateChanged = new Subject<Candidate[]>();
-    // candidateByIdChanged = new Subject<Candidate>();
-    pvDetailsChanged = new Subject<any[]>();
+    transactionDetailsChanged = new Subject<Transaction[]>();
+    paidTransactionDetailsChanged = new Subject<Transaction[]>();
 
-    // private candidate: Candidate;
     private candidatesArray: Candidate[] = [];
-    private pvDetails: any[] = [];
+    private transactionDetails: Transaction[] = [];
+    private recentTransaction: Transaction;
+    private paidTransactionDetails: Transaction[] = [];
     private employees: any[] = [];
+    // private candidate: Candidate;
 
     constructor(private http: Http) {}
 
@@ -40,20 +43,38 @@ export class CandidateService {
     // }
 
     getCandidateById(index: number) {
+        console.log('candidate service: getCandidateById called');
          return this.candidatesArray.filter(candidateData => candidateData.candidateId === index)[0];
     }
 
-    setPvDetails(pvDetails: any[]) {
-        this.pvDetails = pvDetails;
-        this.pvDetailsChanged.next(this.pvDetails.slice());
+    setTransactionDetails(pvDetails: Transaction[]) {
+        this.transactionDetails = pvDetails;
+        this.transactionDetailsChanged.next(this.transactionDetails.slice());
     }
 
-    getPvDetails() {
-        return this.pvDetails.slice();
+    getTransactionDetails() {
+        return this.transactionDetails.slice();
     }
 
-    getPvDetailsByTid(index: number) {
-        return this.pvDetails.filter(pvDetailsData => pvDetailsData.transactionId === index)[0];
+    setRecentTransactionDetails(recentTransaction: Transaction) {
+        this.recentTransaction = recentTransaction;
+    }
+
+    getRecentTransactionDetails() {
+        return this.recentTransaction;
+    }
+
+    setPaidTransactionDetails(paidTransaction: Transaction[]) {
+        this.paidTransactionDetails = paidTransaction;
+        this.paidTransactionDetailsChanged.next(this.paidTransactionDetails.slice());
+    }
+
+    getPaidTransactionDetails() {
+        return this.paidTransactionDetails.slice();
+    }
+
+    getTransactionDetailsByTid(index: number) {
+        return this.transactionDetails.filter(transactionDetailsData => transactionDetailsData.transactionId === index)[0];
     }
 
     setEmployeesArray(employees) {

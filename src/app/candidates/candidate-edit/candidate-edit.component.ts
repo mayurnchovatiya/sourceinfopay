@@ -29,6 +29,8 @@ export class CandidateEditComponent implements OnInit {
         this.editMode = params['id'] != null;
         if (this.editMode) {
           this.candidate = this.candidateService.getCandidateById(this.id);
+          console.log('candidate edit: candidate');
+          console.log(this.candidate);
         }
         this.initForm();
       }
@@ -77,8 +79,8 @@ export class CandidateEditComponent implements OnInit {
     let candidateName = '';
     let startDate = new Date('');
     // let endDate = '';
-    let pvRate = '';
-    let svRate = '';
+    let pvRate = null;
+    let svRate = null;
 
     let primeVendorId = null;
     let pvName = '';

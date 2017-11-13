@@ -1,9 +1,9 @@
-import { HttpModule } from '@angular/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { DateValueAccessorModule } from 'angular-date-value-accessor/src';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
 import { RoutingModule } from './routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DateValueAccessorModule } from 'angular-date-value-accessor/src';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -13,14 +13,15 @@ import { CandidatesListComponent } from './candidates/candidates-list/candidates
 import { CandidatesItemComponent } from './candidates/candidates-list/candidates-item/candidates-item.component';
 import { CandidateEditComponent } from './candidates/candidate-edit/candidate-edit.component';
 import { CandidateStartComponent } from './candidates/candidate-start/candidate-start.component';
-import { CandidateService } from './candidates/candidate.service';
-import { DataStorageService } from './candidates/data-storage.service';
 import { PvComponent } from './candidates/candidates-detail/pv/pv.component';
 import { SvComponent } from './candidates/candidates-detail/sv/sv.component';
 import { PaidComponent } from './candidates/candidates-detail/paid/paid.component';
 import { SiempComponent } from './candidates/candidates-detail/siemp/siemp.component';
-import { DropdownDirective } from './shared/dropdown.directive';
 import { EmployeesComponent } from './employees/employees.component';
+import { CandidateService } from './candidates/candidate.service';
+import { DataStorageService } from './candidates/data-storage.service';
+import { DropdownDirective } from './shared/dropdown.directive';
+import { UtcDatePipe } from './shared/utcdate.pipe';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { EmployeesComponent } from './employees/employees.component';
     PaidComponent,
     SiempComponent,
     DropdownDirective,
-    EmployeesComponent
+    EmployeesComponent,
+    UtcDatePipe
   ],
   imports: [
     BrowserModule,

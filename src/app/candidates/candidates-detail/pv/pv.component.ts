@@ -1,11 +1,13 @@
-import { Subscription } from 'rxjs/Subscription';
-import { Transaction } from './../../../model/transaction.model';
-import { CandidateService } from './../../candidate.service';
-import { Response } from '@angular/http';
-import { DataStorageService } from './../../data-storage.service';
-import { ActivatedRoute, ActivatedRouteSnapshot, Params, Resolve, Router } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Candidate } from './../../../model/candidate.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { Response } from '@angular/http';
+import { Subscription } from 'rxjs/Subscription';
+import { ActivatedRoute, ActivatedRouteSnapshot, Params, Router } from '@angular/router';
+
+import { DataStorageService } from './../../data-storage.service';
+import { CandidateService } from './../../candidate.service';
+import { Transaction } from './../../../model/transaction.model';
 
 @Component({
   selector: 'app-pv',
@@ -17,32 +19,36 @@ export class PvComponent implements OnInit, OnDestroy {
   id: number;
   transactionId: number;
   editMode = false;
-  pvDetails: any[];
-  pvDetailByTid: any;
+  candidate: Candidate;
+  pvDetails: Transaction[];
+  pvDetailByTid: Transaction;
   subscription: Subscription;
-  constructor(private route: ActivatedRoute,
-    private router: Router,
-    private dsService: DataStorageService,
-    private candiadteService: CandidateService
-  ) { }
+  deductionCal: any;
+  deductionToSv = [
+    {value: 'yes'},
+    {value: 'no'}
+  ];
 
-  //   resolve (route: ActivatedRouteSnapshot): Promise<any> {
-  //     return this.dsService.getPvtransactions(this.id);
-  // }
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private dsService: DataStorageService,
+              private candidateService: CandidateService
+              ) { }
 
   ngOnInit() {
     this.route.parent.params.subscribe(
       (params: Params) => {
-        this.id = params['id'];
+        this.id = +params['id'];
         // this.editMode = params['id'] != null;
-        this.initForm();
+        this.candidate = this.candidateService.getCandidateById(this.id);
         this.dsService.getPvtransactions(this.id);
-        this.pvDetails = this.candiadteService.getPvDetails();
-        this.subscription = this.candiadteService.pvDetailsChanged.subscribe(
-          (pvDetailsData: any[]) => {
+        this.pvDetails = this.candidateService.getTransactionDetails();
+        this.subscription = this.candidateService.transactionDetailsChanged.subscribe(
+          (pvDetailsData: Transaction[]) => {
             this.pvDetails = pvDetailsData;
           }
         );
+        this.initForm();
       }
     );
   }
@@ -50,13 +56,15 @@ export class PvComponent implements OnInit, OnDestroy {
   onEditItem(transactionId: number) {
     this.transactionId = transactionId;
     this.editMode = true;
-    this.pvDetailByTid = this.candiadteService.getPvDetailsByTid(transactionId);
+    this.pvDetailByTid = this.candidateService.getTransactionDetailsByTid(transactionId);
     this.initForm();
   }
 
   onSubmit() {
+    console.log('PV Details on submit');
+    console.log(this.pvForm.value);
     if (this.editMode) {
-      this.dsService.putPvTransaction(this.transactionId, this.pvForm.value).subscribe(
+      this.dsService.putTransaction(this.transactionId, this.pvForm.value).subscribe(
         (response: Response) => {
           console.log(response);
         },
@@ -66,9 +74,9 @@ export class PvComponent implements OnInit, OnDestroy {
         () => {
           console.log('PV Detail Updated');
           this.dsService.getPvtransactions(this.id);
-          this.pvDetails = this.candiadteService.getPvDetails();
-          this.editMode = false;
-          this.onReset();
+          this.pvDetails = this.candidateService.getTransactionDetails();
+          // this.editMode = false;
+           this.onReset();
         }
       );
     } else {
@@ -82,7 +90,7 @@ export class PvComponent implements OnInit, OnDestroy {
         () => {
           console.log('PV Detail added');
           this.dsService.getPvtransactions(this.id);
-          this.pvDetails = this.candiadteService.getPvDetails();
+          this.pvDetails = this.candidateService.getTransactionDetails();
           this.onReset();
         }
       );
@@ -90,53 +98,69 @@ export class PvComponent implements OnInit, OnDestroy {
   }
 
   onReset() {
-    this.pvForm.reset();
+    this.editMode = false;
+    this.initForm();
+    // this.pvForm.reset();
   }
 
+  onCancel() {}
+
   private initForm() {
-    let start_date = new Date('');
-    let end_date = new Date('');
-    let prime_vendor_paid_date = new Date('');
-    let hours = '';
-    let prime_vendor_amount = '';
-    let deductions = '';
-    let deductions_to_be_passed_to_sub_vendor = '';
-    let prime_vendor_comments = '';
-    let prime_vendor_paid_status = 'false';
-    let prime_vendor_invoice_number = '';
-    let actualPayment = '';
-    let pvRate = '';
+
+    let startdate = new Date('');
+    let enddate = new Date('');
+    let primevendorpaiddate = new Date('');
+    let totalHours = null;
+    let primevendorExpectedAmount = 0;
+    let primevendorActualPayment = 0;
+    let deductions = 0;
+    let deductionstobepassedtosubvendor = 'no';
+    let primevendorcomments = '';
+    let primevendorpaidstatus = 'unpaid';
+    let primevendorinvoicenumber = '';
+    let primevendorrate = this.candidate.pvRate;
 
     if (this.editMode) {
-      start_date = new Date(this.pvDetailByTid.start_date);
-      end_date = new Date(this.pvDetailByTid.end_date);
-      prime_vendor_paid_date = new Date(this.pvDetailByTid.prime_vendor_paid_date);
-      hours = this.pvDetailByTid.hours;
-      prime_vendor_amount = this.pvDetailByTid.prime_vendor_amount;
+      startdate = new Date(this.pvDetailByTid.startdate);
+      enddate = new Date(this.pvDetailByTid.enddate);
+      primevendorpaiddate = new Date(this.pvDetailByTid.primevendorpaiddate);
+      totalHours = this.pvDetailByTid.totalHours;
+      primevendorExpectedAmount = this.pvDetailByTid.primevendorExpectedAmount;
+      primevendorActualPayment = this. pvDetailByTid.primevendorActualPayment;
       deductions = this.pvDetailByTid.deductions;
-      deductions_to_be_passed_to_sub_vendor = this.pvDetailByTid.deductions_to_be_passed_to_sub_vendor;
-      prime_vendor_comments = this.pvDetailByTid.prime_vendor_comments;
-      prime_vendor_paid_status = this.pvDetailByTid.prime_vendor_paid_status;
-      prime_vendor_invoice_number = this.pvDetailByTid.prime_vendor_invoice_number;
-      actualPayment = this.pvDetailByTid.actualPayment;
-      pvRate = this.pvDetailByTid.pvRate;
+      deductionstobepassedtosubvendor = this.pvDetailByTid.deductionstobepassedtosubvendor;
+      primevendorcomments = this.pvDetailByTid.primevendorcomments;
+      primevendorpaidstatus = this.pvDetailByTid.primevendorpaidstatus;
+      primevendorinvoicenumber = this.pvDetailByTid.primevendorinvoicenumber;
+      primevendorrate = this.candidate.pvRate;
     }
 
     this.pvForm = new FormGroup({
-      'start_date': new FormControl(start_date),
-      'end_date': new FormControl(end_date),
-      'prime_vendor_paid_date': new FormControl(prime_vendor_paid_date),
-      'hours': new FormControl(hours),
-      'prime_vendor_amount': new FormControl(prime_vendor_amount),
+      'startdate': new FormControl(startdate),
+      'enddate': new FormControl(enddate),
+      'primevendorpaiddate': new FormControl(primevendorpaiddate),
+      'totalHours': new FormControl(totalHours),
+      'primevendorExpectedAmount': new FormControl(primevendorExpectedAmount),
+      'primevendorActualPayment': new FormControl(primevendorActualPayment),
       'deductions': new FormControl(deductions),
-      'deductions_to_be_passed_to_sub_vendor': new FormControl(deductions_to_be_passed_to_sub_vendor),
-      'prime_vendor_comments': new FormControl(prime_vendor_comments),
-      'prime_vendor_paid_status': new FormControl(prime_vendor_paid_status),
-      'prime_vendor_invoice_number': new FormControl(prime_vendor_invoice_number),
-      'actualPayment': new FormControl(actualPayment),
-      'pvRate': new FormControl(pvRate)
+      'deductionstobepassedtosubvendor': new FormControl(deductionstobepassedtosubvendor),
+      'primevendorcomments': new FormControl(primevendorcomments),
+      'primevendorpaidstatus': new FormControl(primevendorpaidstatus),
+      'primevendorinvoicenumber': new FormControl(primevendorinvoicenumber),
+      'primevendorrate': new FormControl(primevendorrate)
     });
 
+    this.pvForm.get('totalHours').valueChanges.subscribe(
+      (tHours) => {
+        this.pvForm.get('primevendorExpectedAmount').setValue(tHours * primevendorrate);
+      }
+    );
+    this.pvForm.get('deductions').valueChanges.subscribe(
+      (deductionsValue) => {
+        const updatedprimevendorExpectedAmount =  this.pvForm.get('primevendorExpectedAmount').value;
+        this.pvForm.get('primevendorActualPayment').setValue((updatedprimevendorExpectedAmount - deductionsValue));
+      }
+    );
   }
 
   ngOnDestroy() {

@@ -25,32 +25,30 @@
             <th>Select</th>
           </tr>
         </thead>
+
         <tbody>
-          <tr>
-            <td>11/11/2015</td>
-            <td>1/1/2017</td>
-            <td>500</td>
-            <td>100</td>
-            <td>10</td>
-            <td>10</td>
-            <td>10</td>
-            <td>10</td>
-            <td>good to go</td>
-            <td>30/10/17</td>
-            <td align="center"><input type="radio" style="cursor: pointer" name="radiogroup"></td>
-          </tr>
-          <tr>
-            <td>10/10/2015</td>
-            <td>5/5/2017</td>
-            <td>1000</td>
-            <td>200</td>
-            <td>20</td>
-            <td>20</td>
-            <td>20</td>
-            <td>20</td>
-            <td>good to go</td>
-            <td>25/10/17</td>
+          <tr *ngFor="let paidTransaction of paidTransactions; let i = index">
+            <td>{{ paidTransaction.startdate | utcDate | date: 'MM/dd/yyyy' }}</td>
+            <td>{{ paidTransaction.enddate | utcDate | date: 'MM/dd/yyyy' }}</td>
+            <td>{{ (paidTransaction.primevendorActualPayment - paidTransaction.subvendoramount) }}</td>
+            <td>{{ (paidTransaction.primevendorActualPayment - paidTransaction.subvendoramount) - ( 
+                + (((paidTransaction.primevendorActualPayment - paidTransaction.subvendoramount) * this.paidTransaction.candidate.commission.salesCommission) / 100)
+                + (((paidTransaction.primevendorActualPayment - paidTransaction.subvendoramount) * this.paidTransaction.candidate.commission.recruiterCommission) / 100)
+                + (((paidTransaction.primevendorActualPayment - paidTransaction.subvendoramount) * this.paidTransaction.candidate.commission.managerOneCommission) / 100)
+                + (((paidTransaction.primevendorActualPayment - paidTransaction.subvendoramount) * this.paidTransaction.candidate.commission.managerTwoCommission) / 100) 
+               ) }}</td>
+            <td>{{ ((paidTransaction.primevendorActualPayment - paidTransaction.subvendoramount) * this.paidTransaction.candidate.commission.salesCommission) / 100 }}</td>
+            <td>{{ ((paidTransaction.primevendorActualPayment - paidTransaction.subvendoramount) * this.paidTransaction.candidate.commission.recruiterCommission) / 100 }}</td>
+            <td>{{ ((paidTransaction.primevendorActualPayment - paidTransaction.subvendoramount) * this.paidTransaction.candidate.commission.managerOneCommission) / 100 }}</td>
+            <td>{{ ((paidTransaction.primevendorActualPayment - paidTransaction.subvendoramount) * this.paidTransaction.candidate.commission.managerTwoCommission) / 100 }}</td>
             <td>*</td>
+            <td>*</td>
+            <td align="center">
+                <input  [(ngModel)] = "paidTransaction.isChecked"
+                        style="cursor: pointer" type="checkbox" name="options" 
+                        (change)="onChecked()"
+                >
+              </td>
           </tr>
         </tbody>
 
@@ -79,7 +77,7 @@
         <h5 class="list-group-item-heading">Sales Person</h5>
       </div>
       <span class="pull-right">
-        <h5 class="list-group-item-heading">x %</h5>
+        <h5 class="list-group-item-heading">{{ salesCommission }} %</h5>
       </span>
     </a>
     <a class="list-group-item clearfix left">
@@ -87,7 +85,7 @@
         <h5 class="list-group-item-heading">Recruiter</h5>
       </div>
       <span class="pull-right">
-        <h5 class="list-group-item-heading">y %</h5>
+        <h5 class="list-group-item-heading">{{ recruiterCommission }} %</h5>
       </span>
     </a>
     <a class="list-group-item clearfix  left">
@@ -95,7 +93,7 @@
         <h5 class="list-group-item-heading">Manager 1</h5>
       </div>
       <span class="pull-right">
-        <h5 class="list-group-item-heading">z %</h5>
+        <h5 class="list-group-item-heading">{{ managerOneCommission }} %</h5>
       </span>
     </a>
     <a class="list-group-item clearfix left">
@@ -103,7 +101,7 @@
         <h5 class="list-group-item-heading">Manager 2</h5>
       </div>
       <span class="pull-right">
-        <h5 class="list-group-item-heading">w %</h5>
+        <h5 class="list-group-item-heading">{{ managerTwoCommission }} %</h5>
       </span>
     </a>
   </div>

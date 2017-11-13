@@ -1,11 +1,13 @@
+import { Injectable } from '@angular/core';
+import { Headers, Http, Response } from '@angular/http';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Candidate } from './../model/candidate.model';
-import { CandidateService } from './candidate.service';
-
-import { Headers, Http, Response } from '@angular/http';
-import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
+
+import { CandidateService } from './candidate.service';
+import { Candidate } from './../model/candidate.model';
+import { Transaction } from './../model/transaction.model';
+
 /*
 http://localhost:8080/api/addtransactionsbyid/1
 http://192.168.0.37:8080/api/add-candidate
@@ -13,6 +15,8 @@ http://192.168.0.37:8080/api/candidates
 http://192.168.0.37:8080/api/addtransactionsbyid/
 http://localhost:8080/api/getCandidateById/2
 http://localhost:8080/api/update-candidate
+getrecenttransactions
+paidtab/{id}
 */
 
 @Injectable()
@@ -24,12 +28,12 @@ export class DataStorageService {
 
     /* post single candidate */
     postCandidate(candidate: Candidate) {
-        return this.http.post('http://localhost:8080/api/add-candidate', candidate);
+        return this.http.post('http://192.168.0.37:8080/api/add-candidate', candidate);
     }
 
     /* get candidates */
     getCandidates() {
-        return this.http.get('http://localhost:8080/api/candidates')
+        return this.http.get('http://192.168.0.37:8080/api/candidates')
             .map(
 
             (response: Response) => {
@@ -45,6 +49,11 @@ export class DataStorageService {
             }
             );
 
+    }
+
+    /* Update Candidate by ID*/
+    putCandidate(index: number, candidate: Candidate) {
+        return this.http.put('http://192.168.0.37:8080/api/update-candidate', candidate);
     }
 
     /* get candidate By Id */
@@ -67,65 +76,78 @@ export class DataStorageService {
 
     // }
 
-    /* Update Candidate by ID*/
-    putCandidate(index: number, candidate: Candidate) {
-        return this.http.put('http://localhost:8080/api/update-candidate', candidate);
-    }
-
     /* send PV detail by ID*/
-    postPvTransaction(id: number, pvDetail: any) {
-        return this.http.post('http://localhost:8080/api/addtransactionsbyid/' + id, pvDetail);
+    postPvTransaction(id: number, pvDetail: Transaction) {
+        return this.http.post('http://192.168.0.37:8080/api/addtransactionsbyid/' + id, pvDetail);
     }
 
-    /* get PV details*/
+    /* get PV and SV details*/
     getPvtransactions(id: number) {
-        return this.http.get('http://localhost:8080/api/gettransactions/' + id)
-        .map(
+        return this.http.get('http://192.168.0.37:8080/api/gettransactions/' + id)
+            .map(
             (response: Response) => {
-                const pvDetails: any[] = response.json();
+                const pvDetails: Transaction[] = response.json();
                 return pvDetails;
             }
-        )
-        .subscribe( 
-            (pvDetails: any[]) => {
+            )
+            .subscribe(
+            (pvDetails: Transaction[]) => {
                 console.log('dsService: pvDetails:');
                 console.log(pvDetails);
-                this.candidateService.setPvDetails(pvDetails);
+                this.candidateService.setTransactionDetails(pvDetails);
             }
-        );
+            );
     }
 
-    putPvTransaction(id: number, pvDetail: any) {
-        return this.http.put('http://localhost:8080/api/updatetransactions/' + id, pvDetail);
+    /* get recent PV and SV details*/
+    getRecentTransactions(candidateId: number) {
+        return this.http.get('http://192.168.0.37:8080/api/getrecenttransactions/' + candidateId)
+            .map(
+            (response: Response) => {
+                const recentTransaction: Transaction = response.json();
+                return recentTransaction;
+            }
+            )
+            .subscribe(
+            (recentTransaction: Transaction) => {
+                console.log('dsService: recentTransaction:');
+                console.log(recentTransaction);
+                this.candidateService.setRecentTransactionDetails(recentTransaction);
+            }
+            );
     }
 
-    /* send SV detail by ID*/
-    postSvTransaction(id: number, svDetail: any) {
-        return this.http.post('http://localhost:8080/api/addtransactionsbyid/' + id, svDetail);
+    /* get paid transactions*/
+    getPaidTransactions(candidateId: number) {
+        return this.http.get('http://192.168.0.37:8080/api/paidtab/' + candidateId)
+            .map(
+            (response: Response) => {
+                const paidTransaction: Transaction[] = response.json();
+                return paidTransaction;
+            }
+            )
+            .subscribe(
+            (paidTransaction: Transaction[]) => {
+                console.log('dsService: recentTransaction:');
+                console.log(paidTransaction);
+                this.candidateService.setPaidTransactionDetails(paidTransaction);
+            }
+            );
     }
 
-    /* get SV details*/
-    // getSvtransactions(){
-    //     return this.http.get('')
-    //     .map(
-    //         (response: Response) => {
+    /* update PV and SV details */
+    putTransaction(id: number, detail: any) {
+        return this.http.put('http://192.168.0.37:8080/api/updatetransactions/' + id, detail);
+    }
 
-    //         }
-    //     )
-    //     .subscribe(){
-    //         () => {
-
-    //         }
-    //     }
-    // }
 
     /* post employees */
     postEmployee(employee) {
-        return this.http.post('http://localhost:8080/api/add-employee', employee);
+        return this.http.post('http://192.168.0.37:8080/api/add-employee', employee);
     }
     /* get employees */
     getEmployees() {
-        return this.http.get('http://localhost:8080/api/employees')
+        return this.http.get('http://192.168.0.37:8080/api/employees')
             .map(
 
             (response: Response) => {
