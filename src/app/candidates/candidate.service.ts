@@ -18,6 +18,7 @@ export class CandidateService {
     candidateChanged = new Subject<Candidate[]>();
     transactionDetailsChanged = new Subject<Transaction[]>();
     paidTransactionDetailsChanged = new Subject<Transaction[]>();
+    employeesChanged  = new Subject<any[]>();
 
     private candidatesArray: Candidate[] = [];
     private transactionDetails: Transaction[] = [];
@@ -79,28 +80,10 @@ export class CandidateService {
 
     setEmployeesArray(employees) {
         this.employees = employees;
+        this.employeesChanged.next(this.employees.slice());
     }
 
-    // getCandidates() {
-    //     return this.postCandidate;
-    // }
-
-    // getCandidate(index: number) {
-    //     return this.candidates;
-    // }
-
-    // addCandiidate(candidate: Candidate) {
-    //     this.candidates = candidate;
-    //       this.candidateChanged.next(this.candidates.slice());
-    // }
-
-    // updateCandidate(index: number, newRecipe: Candidate) {
-    //     this.candidates[index] = newRecipe;
-    //      this.candidateChanged.next(this.candidates.slice());
-    // }
-
-    // deleteCandidate(index: number) {
-    //     this.candidates.splice(index, 1);
-    //     this.candidateChanged.next(this.candidates.slice());
-    // }
+    getEmployeesArray() {
+        return this.employees.slice();
+    }
 }

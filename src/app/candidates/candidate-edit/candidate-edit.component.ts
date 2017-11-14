@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs/Subscription';
 import { Candidate } from './../../model/candidate.model';
 import { Response } from '@angular/http';
 import { DataStorageService } from './../data-storage.service';
@@ -16,6 +17,8 @@ export class CandidateEditComponent implements OnInit {
   editMode = false;
   candidateForm: FormGroup;
   candidate: Candidate;
+  employee: any[];
+  subscription: Subscription;
 
   constructor(private route: ActivatedRoute,
     private candidateService: CandidateService,
@@ -27,10 +30,18 @@ export class CandidateEditComponent implements OnInit {
       (params: Params) => {
         this.id = +params['id'];
         this.editMode = params['id'] != null;
+        console.log('id: ' + this.id);
+        this.dsService.getEmployees();
+        this.employee = this.candidateService.getEmployeesArray();
+        this.subscription = this.candidateService.employeesChanged.subscribe(
+          (employeesData: any[]) => {
+            this.employee = employeesData;
+          }
+        );
+        console.log('candidate-edit: employees ');
+        console.log(this.employee);
         if (this.editMode) {
           this.candidate = this.candidateService.getCandidateById(this.id);
-          console.log('candidate edit: candidate');
-          console.log(this.candidate);
         }
         this.initForm();
       }
@@ -99,16 +110,16 @@ export class CandidateEditComponent implements OnInit {
     let svFax = '';
 
     let seName = '';
-    let seRole = '';
+    let seRole = 'sales';
 
     let reName = '';
-    let reRole = '';
+    let reRole = 'recruiter';
 
     let moName = '';
-    let moRole = '';
+    let moRole = 'managerOne';
 
     let mtName = '';
-    let mtRole = '';
+    let mtRole = 'managerTwo';
 
     let commissionId = null;
     let salesCommission = '';

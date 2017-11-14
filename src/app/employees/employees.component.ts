@@ -10,6 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmployeesComponent implements OnInit {
   employeeForm: FormGroup;
+  employees = [
+    { name: 'Sales Employee' , value: 'sales'},
+    { name: 'Recruiter' , value: 'recruiter'},
+    { name: 'Manager One' , value: 'managerOne'},
+    { name: 'Manager Two' , value: 'recruiterTwo'}
+  ];
 
   constructor(private dsService: DataStorageService) { }
 
