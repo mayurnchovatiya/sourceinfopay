@@ -78,7 +78,7 @@ export class CandidateService {
         return this.transactionDetails.filter(transactionDetailsData => transactionDetailsData.transactionId === index)[0];
     }
 
-    setEmployeesArray(employees) {
+    setEmployeesArray(employees) { 
         this.employees = employees;
         this.employeesChanged.next(this.employees.slice());
     }
